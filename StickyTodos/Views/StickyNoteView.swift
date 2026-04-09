@@ -121,24 +121,38 @@ struct StickyNoteView: View {
 
     private func fireTestConfetti() {
         let windowFrame = NSApplication.shared.keyWindow?.frame
+        let note = sticky.wrappedValue
         DispatchQueue.main.async {
-            SoundManager.shared.playCompletionSound()
+            SoundManager.shared.playCompletionSound(sound: note.soundEffect, volume: note.confettiVolume)
             if let frame = windowFrame {
-                ConfettiWindowController.shared.triggerConfetti(atScreenPoint: NSPoint(x: frame.minX + 50, y: frame.maxY - 60))
+                ConfettiWindowController.shared.triggerConfetti(
+                    atScreenPoint: NSPoint(x: frame.minX + 50, y: frame.maxY - 60),
+                    size: note.confettiSize,
+                    amount: note.confettiAmount,
+                    gravity: note.confettiGravity,
+                    colorScheme: note.confettiColorScheme
+                )
             }
         }
     }
 
     private func handleTaskCompletion(taskID: UUID) {
         let windowFrame = NSApplication.shared.keyWindow?.frame
-        let task = sticky.wrappedValue.tasks.first(where: { $0.id == taskID })
-        let stickyName = sticky.wrappedValue.colorTheme.displayName
+        let note = sticky.wrappedValue
+        let task = note.tasks.first(where: { $0.id == taskID })
+        let stickyName = note.colorTheme.displayName
         let sid = stickyID
 
         DispatchQueue.main.async {
-            SoundManager.shared.playCompletionSound()
+            SoundManager.shared.playCompletionSound(sound: note.soundEffect, volume: note.confettiVolume)
             if let frame = windowFrame {
-                ConfettiWindowController.shared.triggerConfetti(atScreenPoint: NSPoint(x: frame.minX + 50, y: frame.maxY - 60))
+                ConfettiWindowController.shared.triggerConfetti(
+                    atScreenPoint: NSPoint(x: frame.minX + 50, y: frame.maxY - 60),
+                    size: note.confettiSize,
+                    amount: note.confettiAmount,
+                    gravity: note.confettiGravity,
+                    colorScheme: note.confettiColorScheme
+                )
             }
             if let task = task {
                 ZapierWebhookService.shared.fireEvent(type: .taskCompleted, stickyID: sid, stickyName: stickyName, task: task)

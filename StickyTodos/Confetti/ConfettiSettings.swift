@@ -1,6 +1,6 @@
 import AppKit
 
-enum ConfettiSize: String, CaseIterable, Identifiable {
+enum ConfettiSize: String, CaseIterable, Identifiable, Codable, Hashable {
     case small, medium, large
     var id: String { rawValue }
 
@@ -29,7 +29,7 @@ enum ConfettiSize: String, CaseIterable, Identifiable {
     }
 }
 
-enum ConfettiAmount: String, CaseIterable, Identifiable {
+enum ConfettiAmount: String, CaseIterable, Identifiable, Codable, Hashable {
     case few, normal, lots
     var id: String { rawValue }
 
@@ -58,7 +58,7 @@ enum ConfettiAmount: String, CaseIterable, Identifiable {
     }
 }
 
-enum ConfettiVolume: String, CaseIterable, Identifiable {
+enum ConfettiVolume: String, CaseIterable, Identifiable, Codable, Hashable {
     case off, low, medium, high
     var id: String { rawValue }
 
@@ -81,7 +81,7 @@ enum ConfettiVolume: String, CaseIterable, Identifiable {
     }
 }
 
-enum ConfettiGravity: String, CaseIterable, Identifiable {
+enum ConfettiGravity: String, CaseIterable, Identifiable, Codable, Hashable {
     case low, medium, high
     var id: String { rawValue }
 
@@ -102,7 +102,7 @@ enum ConfettiGravity: String, CaseIterable, Identifiable {
     }
 }
 
-enum ConfettiColorScheme: String, CaseIterable, Identifiable {
+enum ConfettiColorScheme: String, CaseIterable, Identifiable, Codable, Hashable {
     case rainbow, warm, cool, gold, pink
     var id: String { rawValue }
 

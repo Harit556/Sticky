@@ -42,20 +42,26 @@ class ConfettiScene: SKScene, SKPhysicsContactDelegate {
     }
 
     @MainActor
-    func applyGravity() {
-        let g = ConfettiSettings.shared.gravity.yGravity
+    func applyGravity(_ gravity: ConfettiGravity? = nil) {
+        let g = (gravity ?? ConfettiSettings.shared.gravity).yGravity
         physicsWorld.gravity = CGVector(dx: 0, dy: g)
     }
 
     @MainActor
-    func triggerConfettiDirect(at point: CGPoint) {
-        applyGravity()
+    func triggerConfettiDirect(
+        at point: CGPoint,
+        size: ConfettiSize? = nil,
+        amount: ConfettiAmount? = nil,
+        gravity: ConfettiGravity? = nil,
+        colorScheme: ConfettiColorScheme? = nil
+    ) {
+        applyGravity(gravity)
 
-        let settings = ConfettiSettings.shared
-        let colors = settings.colorScheme.colors
-        let count = settings.amount.particleCount
-        let texSize = settings.size.textureSize
-        let scale = settings.size.particleScale
+        let defaults = ConfettiSettings.shared
+        let colors = (colorScheme ?? defaults.colorScheme).colors
+        let count = (amount ?? defaults.amount).particleCount
+        let texSize = (size ?? defaults.size).textureSize
+        let scale = (size ?? defaults.size).particleScale
 
         // Evict oldest confetti if we'd exceed the cap
         evictIfNeeded(incoming: count)

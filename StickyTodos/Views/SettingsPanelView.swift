@@ -7,7 +7,6 @@ struct SettingsPanelView: View {
     var onDeleteNote: (() -> Void)? = nil
 
     @StateObject private var soundManager = SoundManager.shared
-    @StateObject private var confettiSettings = ConfettiSettings.shared
     @State private var showCustomColorPicker = false
     @State private var customColor: Color = .yellow
 
@@ -29,48 +28,62 @@ struct SettingsPanelView: View {
             menuDivider
 
             menuSection("Sound Effect")
+            menuItem("Default", checked: sticky.soundEffect == nil) {
+                sticky.soundEffect = nil
+            }
             ForEach(SoundEffect.presets) { sound in
-                menuItem(sound.displayName, checked: soundManager.selectedSound == sound, trailing: {
+                menuItem(sound.displayName, checked: sticky.soundEffect == sound, trailing: {
                     Button(action: { soundManager.previewSound(sound) }) {
                         Image(systemName: "play.circle").foregroundStyle(.secondary)
                     }.buttonStyle(.plain)
                 }) {
-                    soundManager.selectedSound = sound
+                    sticky.soundEffect = sound
                     soundManager.previewSound(sound)
                 }
             }
-            if soundManager.selectedSound == .custom {
-                menuItem("✓ " + soundManager.customSoundName, checked: false, disabled: true) {}
-            }
-            menuItem("Upload Custom Sound...") { soundManager.importCustomSound() }
 
             menuDivider
 
             menuSection("Confetti")
             confettiPickerRow("Size") {
-                Picker("", selection: $confettiSettings.size) {
+                Picker("", selection: Binding(
+                    get: { sticky.confettiSize ?? ConfettiSettings.shared.size },
+                    set: { sticky.confettiSize = $0 }
+                )) {
                     ForEach(ConfettiSize.allCases) { Text($0.displayName).tag($0) }
-                }.pickerStyle(.segmented).onChange(of: confettiSettings.size) { onTestConfetti() }
+                }.pickerStyle(.segmented).onChange(of: sticky.confettiSize) { onTestConfetti() }
             }
             confettiPickerRow("Amount") {
-                Picker("", selection: $confettiSettings.amount) {
+                Picker("", selection: Binding(
+                    get: { sticky.confettiAmount ?? ConfettiSettings.shared.amount },
+                    set: { sticky.confettiAmount = $0 }
+                )) {
                     ForEach(ConfettiAmount.allCases) { Text($0.displayName).tag($0) }
-                }.pickerStyle(.segmented).onChange(of: confettiSettings.amount) { onTestConfetti() }
+                }.pickerStyle(.segmented).onChange(of: sticky.confettiAmount) { onTestConfetti() }
             }
             confettiPickerRow("Gravity") {
-                Picker("", selection: $confettiSettings.gravity) {
+                Picker("", selection: Binding(
+                    get: { sticky.confettiGravity ?? ConfettiSettings.shared.gravity },
+                    set: { sticky.confettiGravity = $0 }
+                )) {
                     ForEach(ConfettiGravity.allCases) { Text($0.displayName).tag($0) }
-                }.pickerStyle(.segmented).onChange(of: confettiSettings.gravity) { onTestConfetti() }
+                }.pickerStyle(.segmented).onChange(of: sticky.confettiGravity) { onTestConfetti() }
             }
             confettiPickerRow("Volume") {
-                Picker("", selection: $confettiSettings.volume) {
+                Picker("", selection: Binding(
+                    get: { sticky.confettiVolume ?? ConfettiSettings.shared.volume },
+                    set: { sticky.confettiVolume = $0 }
+                )) {
                     ForEach(ConfettiVolume.allCases) { Text($0.displayName).tag($0) }
                 }.pickerStyle(.segmented)
             }
             confettiPickerRow("Colour") {
-                Picker("", selection: $confettiSettings.colorScheme) {
+                Picker("", selection: Binding(
+                    get: { sticky.confettiColorScheme ?? ConfettiSettings.shared.colorScheme },
+                    set: { sticky.confettiColorScheme = $0 }
+                )) {
                     ForEach(ConfettiColorScheme.allCases) { Text($0.displayName).tag($0) }
-                }.pickerStyle(.menu).onChange(of: confettiSettings.colorScheme) { onTestConfetti() }
+                }.pickerStyle(.menu).onChange(of: sticky.confettiColorScheme) { onTestConfetti() }
             }
             menuItem("✦  Test Confetti") { onTestConfetti() }
 
@@ -82,6 +95,14 @@ struct SettingsPanelView: View {
             }
             menuItem("Sort completed to bottom", checked: sticky.autoSortCompleted) {
                 sticky.autoSortCompleted.toggle()
+            }
+            menuItem("Reset to Defaults") {
+                sticky.soundEffect = nil
+                sticky.confettiSize = nil
+                sticky.confettiAmount = nil
+                sticky.confettiGravity = nil
+                sticky.confettiVolume = nil
+                sticky.confettiColorScheme = nil
             }
 
             if let onDeleteNote = onDeleteNote {

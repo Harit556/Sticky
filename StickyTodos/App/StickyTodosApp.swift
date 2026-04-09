@@ -148,6 +148,12 @@ struct StickyTodosApp: App {
                     NSApp.activate(ignoringOtherApps: true)
                     openWindow(id: "zapier-settings")
                 }
+
+                Divider()
+
+                Button("Reset App...") {
+                    resetApp()
+                }
             }
         }
 
@@ -160,6 +166,36 @@ struct StickyTodosApp: App {
 }
 
 extension StickyTodosApp {
+    func resetApp() {
+        let alert = NSAlert()
+        alert.messageText = "Reset Sticky?"
+        alert.informativeText = "This will delete all your sticky notes and settings, returning the app to its first-launch state. This cannot be undone."
+        alert.alertStyle = .warning
+        alert.addButton(withTitle: "Reset")
+        alert.addButton(withTitle: "Cancel")
+        let response = alert.runModal()
+        guard response == .alertFirstButtonReturn else { return }
+
+        // Close all windows
+        for window in NSApplication.shared.windows {
+            window.close()
+        }
+
+        // Delete all stickies and recreate welcome notes
+        store.resetToFirstLaunch()
+
+        // Open the first sticky
+        if let first = store.stickies.first {
+            openWindow(id: "sticky", value: first.id)
+            // Open remaining stickies
+            for (index, sticky) in store.stickies.dropFirst().enumerated() {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3 + Double(index) * 0.2) {
+                    self.openWindow(id: "sticky", value: sticky.id)
+                }
+            }
+        }
+    }
+
     func openAllNotesSideBySide() {
         let noteWidth = 280.0
         let noteHeight = 400.0

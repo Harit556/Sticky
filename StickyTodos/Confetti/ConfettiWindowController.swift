@@ -20,10 +20,16 @@ class ConfettiWindowController {
 
     /// Trigger a confetti burst at the given screen coordinate (origin bottom-left).
     @MainActor
-    func triggerConfetti(atScreenPoint point: NSPoint) {
+    func triggerConfetti(
+        atScreenPoint point: NSPoint,
+        size: ConfettiSize? = nil,
+        amount: ConfettiAmount? = nil,
+        gravity: ConfettiGravity? = nil,
+        colorScheme: ConfettiColorScheme? = nil
+    ) {
         ensureWindow()
         window?.orderFrontRegardless()
-        scene?.triggerConfettiDirect(at: CGPoint(x: point.x, y: point.y))
+        scene?.triggerConfettiDirect(at: CGPoint(x: point.x, y: point.y), size: size, amount: amount, gravity: gravity, colorScheme: colorScheme)
 
         // Auto-hide after particles settle and fade (3s pile + 1s fade buffer)
         scheduleHide()

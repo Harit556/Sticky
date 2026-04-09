@@ -1,7 +1,7 @@
 import AppKit
 import AVFoundation
 
-enum SoundEffect: String, CaseIterable, Identifiable, Codable {
+enum SoundEffect: String, CaseIterable, Identifiable, Codable, Hashable {
     case confetti = "confetti"
     case yay = "Yay"
     case yippie = "Yippie"
@@ -78,9 +78,21 @@ class SoundManager: ObservableObject {
         loadCurrentSound()
     }
 
-    func playCompletionSound() {
-        let vol = ConfettiSettings.shared.volume.volume
+    func playCompletionSound(sound: SoundEffect? = nil, volume: ConfettiVolume? = nil) {
+        let vol = (volume ?? ConfettiSettings.shared.volume).volume
         guard vol > 0 else { return }
+
+        // If a specific sound is requested and differs from current, play it directly
+        if let sound = sound, sound != selectedSound {
+            if let url = soundURL(for: sound), let tempPlayer = try? AVAudioPlayer(contentsOf: url) {
+                tempPlayer.volume = vol
+                tempPlayer.play()
+                // Keep a strong reference so it doesn't get deallocated
+                self.player = tempPlayer
+            }
+            return
+        }
+
         if let player = player {
             if player.isPlaying {
                 player.stop()

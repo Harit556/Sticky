@@ -36,6 +36,14 @@ struct StickyNote: Identifiable, Codable, Hashable, Equatable {
     var isAlwaysOnTop: Bool
     var autoSortCompleted: Bool
 
+    // Per-sticky sound & confetti settings
+    var soundEffect: SoundEffect?
+    var confettiSize: ConfettiSize?
+    var confettiAmount: ConfettiAmount?
+    var confettiGravity: ConfettiGravity?
+    var confettiVolume: ConfettiVolume?
+    var confettiColorScheme: ConfettiColorScheme?
+
     var remainingCount: Int { tasks.filter { !$0.isCompleted }.count }
     var totalCount: Int { tasks.count }
 
@@ -48,7 +56,13 @@ struct StickyNote: Identifiable, Codable, Hashable, Equatable {
         createdAt: Date = Date(),
         lastModifiedAt: Date = Date(),
         isAlwaysOnTop: Bool = true,
-        autoSortCompleted: Bool = false
+        autoSortCompleted: Bool = false,
+        soundEffect: SoundEffect? = nil,
+        confettiSize: ConfettiSize? = nil,
+        confettiAmount: ConfettiAmount? = nil,
+        confettiGravity: ConfettiGravity? = nil,
+        confettiVolume: ConfettiVolume? = nil,
+        confettiColorScheme: ConfettiColorScheme? = nil
     ) {
         self.id = id
         self.title = title
@@ -59,6 +73,12 @@ struct StickyNote: Identifiable, Codable, Hashable, Equatable {
         self.lastModifiedAt = lastModifiedAt
         self.isAlwaysOnTop = isAlwaysOnTop
         self.autoSortCompleted = autoSortCompleted
+        self.soundEffect = soundEffect
+        self.confettiSize = confettiSize
+        self.confettiAmount = confettiAmount
+        self.confettiGravity = confettiGravity
+        self.confettiVolume = confettiVolume
+        self.confettiColorScheme = confettiColorScheme
     }
 
     mutating func addTask(title: String = "") {

@@ -110,6 +110,49 @@ class StickyStore: ObservableObject {
         )
     }
 
+    func resetToFirstLaunch() {
+        stickies.removeAll()
+        // Re-run the welcome note creation logic
+        let noteWidth = 280.0
+        let noteHeight = 400.0
+        let gap = 12.0
+        let screenWidth = Double(NSScreen.main?.frame.width ?? 1440)
+        let screenHeight = Double(NSScreen.main?.frame.height ?? 900)
+        let totalWidth = noteWidth * 3 + gap * 2
+        let startX = (screenWidth - totalWidth) / 2
+        let startY = (screenHeight - noteHeight) / 2
+
+        let welcomeNotes: [(title: String, task: String, theme: StickyColorTheme)] = [
+            ("My Tasks",   "You can do it",               .preset(.yellow)),
+            ("Shortcuts",  "CMD + Enter for ticking",     .preset(.green)),
+            ("Tips",       "Right click for settings",    .preset(.blue)),
+        ]
+
+        for (i, info) in welcomeNotes.enumerated() {
+            var note = StickyNote(
+                title: info.title,
+                colorTheme: info.theme,
+                windowFrame: CodableRect(
+                    x: startX + Double(i) * (noteWidth + gap),
+                    y: startY,
+                    width: noteWidth,
+                    height: noteHeight
+                )
+            )
+            note.addTask(title: info.task)
+            stickies.append(note)
+        }
+
+        // Reset global settings
+        ConfettiSettings.shared.size = .medium
+        ConfettiSettings.shared.amount = .normal
+        ConfettiSettings.shared.gravity = .medium
+        ConfettiSettings.shared.volume = .medium
+        ConfettiSettings.shared.colorScheme = .rainbow
+
+        saveToDisk()
+    }
+
     // MARK: - Window Frame Persistence
 
     func updateWindowFrame(for stickyID: UUID, frame: CGRect) {
