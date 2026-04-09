@@ -77,7 +77,9 @@ struct StickyNoteView: View {
         }
         .onAppear {
             configureWindow()
-            openFirstLaunchStickies()
+        }
+        .onChange(of: store.openAllTrigger) { _, _ in
+            openRemainingStickies()
         }
         .onChange(of: note.isAlwaysOnTop) { _, isOnTop in setWindowLevel(floating: isOnTop) }
     }
@@ -96,14 +98,12 @@ struct StickyNoteView: View {
 
     }
 
-    private func openFirstLaunchStickies() {
-        guard !store.hasOpenedAllOnLaunch else { return }
-        store.hasOpenedAllOnLaunch = true
+    private func openRemainingStickies() {
         if store.isFirstLaunch { store.isFirstLaunch = false }
         let currentID = stickyID
         let otherStickies = store.stickies.filter { $0.id != currentID }
         for (index, other) in otherStickies.enumerated() {
-            let delay = 0.5 + Double(index) * 0.3
+            let delay = 0.3 + Double(index) * 0.3
             let id = other.id
             DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
                 self.openWindow(id: "sticky", value: id)

@@ -62,6 +62,7 @@ class ConfettiWindowController {
             backing: .buffered,
             defer: false
         )
+        win.isReleasedWhenClosed = false
         win.isOpaque = false
         win.backgroundColor = .clear
         win.hasShadow = false

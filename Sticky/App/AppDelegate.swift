@@ -11,6 +11,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         _ = SoundManager.shared  // Force singleton init, which pre-loads the sound
 
 
+        // Tell any open StickyNoteView to open remaining stickies
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            StickyStore.shared.openAllTrigger += 1
+        }
+
         // Observe new windows to apply sticky styling
         windowObserver = NotificationCenter.default.addObserver(
             forName: NSWindow.didBecomeKeyNotification,
@@ -35,6 +40,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         return false // Keep alive for menu bar
     }
+
 
     private func configureStickyWindow(_ window: NSWindow) {
         let windowID = ObjectIdentifier(window)

@@ -5,8 +5,7 @@ import SwiftUI
 class StickyStore: ObservableObject {
     @Published var stickies: [StickyNote] = []
     var isFirstLaunch: Bool = false
-    /// True only until the first StickyNoteView.onAppear has opened all windows this session.
-    var hasOpenedAllOnLaunch: Bool = false
+    @Published var openAllTrigger: Int = 0
 
     private let fileURL: URL
     private var saveTask: Task<Void, Never>?

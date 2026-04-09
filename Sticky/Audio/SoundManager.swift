@@ -8,6 +8,7 @@ enum SoundEffect: String, CaseIterable, Identifiable, Codable, Hashable {
     case catLaugh = "Cat Laugh"
     case applePay = "Apple Pay"
     case rizz = "Rizz"
+    case clickNice = "Click Nice"
     case custom = "__custom__"
 
     var id: String { rawValue }
@@ -20,6 +21,7 @@ enum SoundEffect: String, CaseIterable, Identifiable, Codable, Hashable {
         case .catLaugh: return "😹 Cat Laugh"
         case .applePay: return "💳 Apple Pay"
         case .rizz: return "😎 Rizz"
+        case .clickNice: return "👆 Click, Nice"
         case .custom: return "📁 Custom..."
         }
     }

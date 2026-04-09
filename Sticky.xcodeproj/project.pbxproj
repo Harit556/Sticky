@@ -38,6 +38,7 @@
 		A10033 /* Cat Laugh.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B10033; };
 		A10034 /* Apple Pay.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B10034; };
 		A10035 /* Rizz.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B10035; };
+		A10036 /* Click Nice.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B10036; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,6 +75,7 @@
 		B10033 /* Cat Laugh.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Cat Laugh.mp3"; sourceTree = "<group>"; };
 		B10034 /* Apple Pay.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Apple Pay.mp3"; sourceTree = "<group>"; };
 		B10035 /* Rizz.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Rizz.mp3; sourceTree = "<group>"; };
+		B10036 /* Click Nice.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Click Nice.mp3"; sourceTree = "<group>"; };
 		P10001 /* Sticky.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sticky.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -179,6 +181,7 @@
 				B10033 /* Cat Laugh.mp3 */,
 				B10034 /* Apple Pay.mp3 */,
 				B10035 /* Rizz.mp3 */,
+				B10036 /* Click Nice.mp3 */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -273,6 +276,7 @@
 				A10033 /* Cat Laugh.mp3 in Resources */,
 				A10034 /* Apple Pay.mp3 in Resources */,
 				A10035 /* Rizz.mp3 in Resources */,
+				A10036 /* Click Nice.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

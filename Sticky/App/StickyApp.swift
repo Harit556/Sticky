@@ -176,8 +176,8 @@ extension StickyApp {
         let response = alert.runModal()
         guard response == .alertFirstButtonReturn else { return }
 
-        // Close all windows
-        for window in NSApplication.shared.windows {
+        // Close all sticky windows (skip internal windows like the confetti overlay)
+        for window in NSApplication.shared.windows where window.styleMask.contains(.titled) {
             window.close()
         }
 
