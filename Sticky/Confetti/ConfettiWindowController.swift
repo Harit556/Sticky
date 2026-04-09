@@ -82,5 +82,14 @@ class ConfettiWindowController {
 
         self.window = win
         self.scene = confettiScene
+
+        NotificationCenter.default.addObserver(
+            forName: NSWindow.willCloseNotification,
+            object: win,
+            queue: .main
+        ) { [weak self] _ in
+            self?.window = nil
+            self?.scene = nil
+        }
     }
 }
