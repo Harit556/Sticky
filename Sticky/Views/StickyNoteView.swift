@@ -97,15 +97,15 @@ struct StickyNoteView: View {
     }
 
     private func openFirstLaunchStickies() {
-        guard store.isFirstLaunch else { return }
-        store.isFirstLaunch = false
+        guard !store.hasOpenedAllOnLaunch else { return }
+        store.hasOpenedAllOnLaunch = true
+        if store.isFirstLaunch { store.isFirstLaunch = false }
         let currentID = stickyID
         let otherStickies = store.stickies.filter { $0.id != currentID }
         for (index, other) in otherStickies.enumerated() {
-            let delay = 0.8 + Double(index) * 0.4
+            let delay = 0.5 + Double(index) * 0.3
             let id = other.id
             DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-                NSLog("STICKY: Opening window for \(id)")
                 self.openWindow(id: "sticky", value: id)
             }
         }
