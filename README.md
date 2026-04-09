@@ -1,6 +1,6 @@
 # StickyTodos
 
-A native macOS sticky note to-do list app built with Swift and SwiftUI. Every completed task triggers a confetti celebration with sound.
+A native macOS sticky note to-do list app built with Swift and SwiftUI. Every completed task triggers a confetti celebration with custom sound effects.
 
 ## Requirements
 
