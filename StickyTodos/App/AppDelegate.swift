@@ -10,6 +10,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         ConfettiWindowController.shared.warmUp()
         _ = SoundManager.shared  // Force singleton init, which pre-loads the sound
 
+
         // Observe new windows to apply sticky styling
         windowObserver = NotificationCenter.default.addObserver(
             forName: NSWindow.didBecomeKeyNotification,

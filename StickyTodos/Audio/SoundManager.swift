@@ -79,12 +79,14 @@ class SoundManager: ObservableObject {
     }
 
     func playCompletionSound() {
+        let vol = ConfettiSettings.shared.volume.volume
+        guard vol > 0 else { return }
         if let player = player {
             if player.isPlaying {
                 player.stop()
             }
             player.currentTime = 0
-            player.volume = 0.7
+            player.volume = vol
             player.play()
         }
     }

@@ -4,6 +4,7 @@ import SwiftUI
 @MainActor
 class StickyStore: ObservableObject {
     @Published var stickies: [StickyNote] = []
+    var isFirstLaunch: Bool = false
 
     private let fileURL: URL
     private var saveTask: Task<Void, Never>?
@@ -12,7 +13,7 @@ class StickyStore: ObservableObject {
 
     init() {
         let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-        let appDir = appSupport.appendingPathComponent("StickyTodos", isDirectory: true)
+        let appDir = appSupport.appendingPathComponent("Sticky", isDirectory: true)
 
         if !FileManager.default.fileExists(atPath: appDir.path) {
             try? FileManager.default.createDirectory(at: appDir, withIntermediateDirectories: true)
@@ -22,19 +23,58 @@ class StickyStore: ObservableObject {
         self.stickies = loadFromDisk()
 
         if stickies.isEmpty {
-            var note = StickyNote()
-            note.addTask(title: "Welcome to StickyTodos!")
-            note.addTask(title: "Check me off for confetti 🎉")
-            stickies.append(note)
+            let noteWidth = 280.0
+            let noteHeight = 400.0
+            let gap = 12.0
+
+            // Start roughly centred on screen
+            let screenWidth = Double(NSScreen.main?.frame.width ?? 1440)
+            let screenHeight = Double(NSScreen.main?.frame.height ?? 900)
+            let totalWidth = noteWidth * 3 + gap * 2
+            let startX = (screenWidth - totalWidth) / 2
+            let startY = (screenHeight - noteHeight) / 2
+
+            let welcomeNotes: [(title: String, task: String, theme: StickyColorTheme)] = [
+                ("My Tasks",   "You can do it",               .preset(.yellow)),
+                ("Shortcuts",  "CMD + Enter for ticking",     .preset(.green)),
+                ("Tips",       "Right click for settings", .preset(.blue)),
+            ]
+
+            for (i, info) in welcomeNotes.enumerated() {
+                var note = StickyNote(
+                    title: info.title,
+                    colorTheme: info.theme,
+                    windowFrame: CodableRect(
+                        x: startX + Double(i) * (noteWidth + gap),
+                        y: startY,
+                        width: noteWidth,
+                        height: noteHeight
+                    )
+                )
+                note.addTask(title: info.task)
+                stickies.append(note)
+            }
+
             saveToDisk()
+            isFirstLaunch = true
         }
     }
 
     // MARK: - CRUD Operations
 
     @discardableResult
-    func createSticky() -> StickyNote {
-        let note = StickyNote()
+    func createSticky(nextToFrame frame: CGRect? = nil) -> StickyNote {
+        var note = StickyNote()
+        note.addTask(title: "You can do it")
+        if let frame = frame {
+            // Position the new note to the right of the triggering window, at the same vertical level
+            note.windowFrame = CodableRect(
+                x: Double(frame.maxX + 12),
+                y: Double(frame.minY),
+                width: 280,
+                height: 400
+            )
+        }
         stickies.append(note)
         scheduleSave()
         return note

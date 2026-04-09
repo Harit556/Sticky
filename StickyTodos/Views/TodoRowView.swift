@@ -7,6 +7,7 @@ struct TodoRowView: View {
     let onToggle: (UUID) -> Void
     let onDelete: (UUID) -> Void
     let onSubmit: () -> Void
+    let onCmdEnter: () -> Void
     let onBackspaceEmpty: () -> Void
     let onMoveUp: () -> Void
     let onMoveDown: () -> Void
@@ -47,9 +48,12 @@ struct TodoRowView: View {
                     }
                 },
                 onSubmit: onSubmit,
+                onCmdEnter: onCmdEnter,
                 onMoveUp: onMoveUp,
                 onMoveDown: onMoveDown,
-                focusToken: focusToken,
+                // Only pass a non-nil token to THIS row when it's the intended focus target.
+                // Passing the raw global token to every row caused all rows to fight for focus.
+                focusToken: focusToken == task.id ? focusToken : nil,
                 onFocusGranted: onFocusGranted
             )
             .frame(maxWidth: .infinity, minHeight: 18)

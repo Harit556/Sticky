@@ -23,6 +23,33 @@ struct StickyTodosApp: App {
                 }
                 .keyboardShortcut("n", modifiers: .command)
             }
+
+            CommandMenu("Notes") {
+                ForEach(store.stickies) { sticky in
+                    Menu("\(sticky.title) — \(sticky.remainingCount)/\(sticky.totalCount)") {
+                        Button("Open") {
+                            openWindow(id: "sticky", value: sticky.id)
+                        }
+                        Button("Delete") {
+                            store.deleteSticky(id: sticky.id)
+                        }
+                    }
+                }
+
+                Divider()
+
+                Button("New Sticky Note") {
+                    let note = store.createSticky()
+                    openWindow(id: "sticky", value: note.id)
+                }
+
+                Divider()
+
+                Button("Zapier Integration...") {
+                    NSApp.activate(ignoringOtherApps: true)
+                    openWindow(id: "zapier-settings")
+                }
+            }
         }
 
         // Settings window for Zapier
@@ -30,56 +57,6 @@ struct StickyTodosApp: App {
             ZapierSettingsView()
         }
         .windowResizability(.contentSize)
-
-        // Menu bar extra
-        MenuBarExtra("StickyTodos", systemImage: "note.text") {
-            menuBarContent
-        }
-        .menuBarExtraStyle(.menu)
-    }
-
-    @ViewBuilder
-    private var menuBarContent: some View {
-        if store.stickies.isEmpty {
-            Text("No stickies")
-                .foregroundStyle(.secondary)
-        } else {
-            ForEach(store.stickies) { sticky in
-                Button(action: {
-                    openWindow(id: "sticky", value: sticky.id)
-                }) {
-                    HStack {
-                        Circle()
-                            .fill(sticky.colorTheme.swatchColor)
-                            .frame(width: 8, height: 8)
-                        Text("\(sticky.colorTheme.displayName) — \(sticky.remainingCount)/\(sticky.totalCount) tasks")
-                    }
-                }
-            }
-        }
-
-        Divider()
-
-        Button("New Sticky Note") {
-            let note = store.createSticky()
-            openWindow(id: "sticky", value: note.id)
-        }
-        .keyboardShortcut("n", modifiers: .command)
-
-        Divider()
-
-        Button("Zapier Integration...") {
-            NSApp.activate(ignoringOtherApps: true)
-            openWindow(id: "zapier-settings")
-        }
-
-        Divider()
-
-        Button("Quit StickyTodos") {
-            store.saveToDisk()
-            NSApplication.shared.terminate(nil)
-        }
-        .keyboardShortcut("q", modifiers: .command)
     }
 }
 

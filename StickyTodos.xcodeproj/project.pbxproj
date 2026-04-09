@@ -22,6 +22,7 @@
 		A10013 /* ZapierSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10013; };
 		A10014 /* ConfettiScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10014; };
 		A10015 /* ConfettiEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10015; };
+		A10025 /* ConfettiSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10025; };
 		A10016 /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10016; };
 		A10017 /* StickyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10017; };
 		A10018 /* WebhookEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10018; };
@@ -29,6 +30,8 @@
 		A10020 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B10020; };
 		A10021 /* ConfettiWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10023; };
 		A10022 /* BackspaceTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10024; };
+		A10026 /* SettingsPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10026; };
+		A10027 /* RightClickHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10027; };
 		A10030 /* confetti.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B10030; };
 		A10031 /* Yay.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B10031; };
 		A10032 /* Yippie.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B10032; };
@@ -53,6 +56,7 @@
 		B10013 /* ZapierSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZapierSettingsView.swift; sourceTree = "<group>"; };
 		B10014 /* ConfettiScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiScene.swift; sourceTree = "<group>"; };
 		B10015 /* ConfettiEmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiEmitter.swift; sourceTree = "<group>"; };
+		B10025 /* ConfettiSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiSettings.swift; sourceTree = "<group>"; };
 		B10016 /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
 		B10017 /* StickyStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickyStore.swift; sourceTree = "<group>"; };
 		B10018 /* WebhookEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebhookEvent.swift; sourceTree = "<group>"; };
@@ -62,6 +66,8 @@
 		B10022 /* StickyTodos.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StickyTodos.entitlements; sourceTree = "<group>"; };
 		B10023 /* ConfettiWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiWindowController.swift; sourceTree = "<group>"; };
 		B10024 /* BackspaceTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackspaceTextField.swift; sourceTree = "<group>"; };
+		B10026 /* SettingsPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPanelView.swift; sourceTree = "<group>"; };
+		B10027 /* RightClickHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightClickHandler.swift; sourceTree = "<group>"; };
 		B10030 /* confetti.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = confetti.mp3; sourceTree = "<group>"; };
 		B10031 /* Yay.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Yay.mp3; sourceTree = "<group>"; };
 		B10032 /* Yippie.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Yippie.mp3; sourceTree = "<group>"; };
@@ -138,6 +144,8 @@
 				B10012 /* ConfettiOverlayView.swift */,
 				B10013 /* ZapierSettingsView.swift */,
 				B10024 /* BackspaceTextField.swift */,
+				B10026 /* SettingsPanelView.swift */,
+				B10027 /* RightClickHandler.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -148,6 +156,7 @@
 				B10014 /* ConfettiScene.swift */,
 				B10015 /* ConfettiEmitter.swift */,
 				B10023 /* ConfettiWindowController.swift */,
+				B10025 /* ConfettiSettings.swift */,
 			);
 			path = Confetti;
 			sourceTree = "<group>";
@@ -289,12 +298,15 @@
 				A10013 /* ZapierSettingsView.swift in Sources */,
 				A10014 /* ConfettiScene.swift in Sources */,
 				A10015 /* ConfettiEmitter.swift in Sources */,
+				A10025 /* ConfettiSettings.swift in Sources */,
 				A10016 /* SoundManager.swift in Sources */,
 				A10017 /* StickyStore.swift in Sources */,
 				A10018 /* WebhookEvent.swift in Sources */,
 				A10019 /* ZapierWebhookService.swift in Sources */,
 				A10021 /* ConfettiWindowController.swift in Sources */,
 				A10022 /* BackspaceTextField.swift in Sources */,
+				A10026 /* SettingsPanelView.swift in Sources */,
+				A10027 /* RightClickHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

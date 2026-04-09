@@ -26,7 +26,7 @@ struct ZapierSettingsView: View {
             Text("Zapier Integration")
                 .font(.title2.bold())
 
-            Text("Connect StickyTodos to hundreds of apps via Zapier webhooks.")
+            Text("Connect Sticky to hundreds of apps via Zapier webhooks.")
                 .font(.caption)
                 .foregroundStyle(.secondary)
 

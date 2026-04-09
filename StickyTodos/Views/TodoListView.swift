@@ -17,17 +17,16 @@ struct TodoListView: View {
                             colorTheme: sticky.colorTheme,
                             colorScheme: colorScheme,
                             onToggle: { taskID in
-                                let wasCompleted = sticky.tasks.first(where: { $0.id == taskID })?.isCompleted ?? false
-                                sticky.toggleTask(id: taskID)
-                                if !wasCompleted {
-                                    onTaskCompleted(taskID)
-                                }
+                                toggleTask(taskID)
                             },
                             onDelete: { taskID in
                                 deleteAndFocusPrevious(taskID, proxy: proxy)
                             },
                             onSubmit: {
                                 addNewTaskAfter(task.id, proxy: proxy)
+                            },
+                            onCmdEnter: {
+                                toggleTask(task.id)
                             },
                             onBackspaceEmpty: {
                                 deleteAndFocusPrevious(task.id, proxy: proxy)
@@ -47,6 +46,25 @@ struct TodoListView: View {
                         .id(task.id)
                     }
                 }
+            }
+        }
+    }
+
+    // MARK: - Toggle
+
+    private func toggleTask(_ taskID: UUID) {
+        let wasCompleted = sticky.tasks.first(where: { $0.id == taskID })?.isCompleted ?? false
+        sticky.toggleTask(id: taskID)
+        if !wasCompleted {
+            onTaskCompleted(taskID)
+        }
+        // Auto-sort: incomplete tasks first, completed tasks last
+        if sticky.autoSortCompleted {
+            let incomplete = sticky.tasks.filter { !$0.isCompleted }
+            let completed = sticky.tasks.filter { $0.isCompleted }
+            sticky.tasks = incomplete + completed
+            for i in sticky.tasks.indices {
+                sticky.tasks[i].sortOrder = i
             }
         }
     }

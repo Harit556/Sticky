@@ -77,7 +77,7 @@ class ZapierWebhookService {
             type: .taskCompleted,
             stickyID: UUID(),
             stickyName: "Test Sticky",
-            task: TodoItem(title: "Test task from StickyTodos", isCompleted: true)
+            task: TodoItem(title: "Test task from Sticky", isCompleted: true)
         )
 
         guard let body = testEvent.jsonData else { return false }

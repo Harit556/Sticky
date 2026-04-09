@@ -34,6 +34,7 @@ struct StickyNote: Identifiable, Codable, Hashable, Equatable {
     var createdAt: Date
     var lastModifiedAt: Date
     var isAlwaysOnTop: Bool
+    var autoSortCompleted: Bool
 
     var remainingCount: Int { tasks.filter { !$0.isCompleted }.count }
     var totalCount: Int { tasks.count }
@@ -46,7 +47,8 @@ struct StickyNote: Identifiable, Codable, Hashable, Equatable {
         windowFrame: CodableRect? = nil,
         createdAt: Date = Date(),
         lastModifiedAt: Date = Date(),
-        isAlwaysOnTop: Bool = true
+        isAlwaysOnTop: Bool = true,
+        autoSortCompleted: Bool = false
     ) {
         self.id = id
         self.title = title
@@ -56,6 +58,7 @@ struct StickyNote: Identifiable, Codable, Hashable, Equatable {
         self.createdAt = createdAt
         self.lastModifiedAt = lastModifiedAt
         self.isAlwaysOnTop = isAlwaysOnTop
+        self.autoSortCompleted = autoSortCompleted
     }
 
     mutating func addTask(title: String = "") {

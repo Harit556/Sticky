@@ -2,10 +2,13 @@ import SwiftUI
 
 struct PeelShadowView: View {
     let colorScheme: ColorScheme
+    var onTap: (() -> Void)? = nil
+
     @State private var isHovering = false
 
+    // 20% smaller than original (was 28/36)
     private var peelSize: CGFloat {
-        isHovering ? 36 : 28
+        isHovering ? 29 : 22
     }
 
     var body: some View {
@@ -49,5 +52,9 @@ struct PeelShadowView: View {
                 isHovering = hovering
             }
         }
+        .onTapGesture {
+            onTap?()
+        }
+        .help("New sticky note")
     }
 }

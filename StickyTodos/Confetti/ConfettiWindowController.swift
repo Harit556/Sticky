@@ -19,12 +19,13 @@ class ConfettiWindowController {
     }
 
     /// Trigger a confetti burst at the given screen coordinate (origin bottom-left).
+    @MainActor
     func triggerConfetti(atScreenPoint point: NSPoint) {
         ensureWindow()
         window?.orderFrontRegardless()
         scene?.triggerConfettiDirect(at: CGPoint(x: point.x, y: point.y))
 
-        // Auto-hide after particles finish
+        // Auto-hide after particles settle and fade (3s pile + 1s fade buffer)
         scheduleHide()
     }
 
@@ -32,9 +33,13 @@ class ConfettiWindowController {
 
     private func scheduleHide() {
         hideTimer?.invalidate()
-        hideTimer = Timer.scheduledTimer(withTimeInterval: 4.0, repeats: false) { [weak self] _ in
-            if let scene = self?.scene, scene.children.isEmpty {
+        hideTimer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false) { [weak self] _ in
+            // Only hide if no confetti nodes remain
+            if let scene = self?.scene, scene.children.filter({ $0.name == "confetti" }).isEmpty {
                 self?.window?.orderOut(nil)
+            } else {
+                // Check again in a second
+                self?.scheduleHide()
             }
         }
     }
