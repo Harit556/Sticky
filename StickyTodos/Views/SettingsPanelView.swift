@@ -77,6 +77,9 @@ struct SettingsPanelView: View {
             menuDivider
 
             menuSection("Options")
+            menuItem("Always on Top", checked: sticky.isAlwaysOnTop) {
+                sticky.isAlwaysOnTop.toggle()
+            }
             menuItem("Sort completed to bottom", checked: sticky.autoSortCompleted) {
                 sticky.autoSortCompleted.toggle()
             }

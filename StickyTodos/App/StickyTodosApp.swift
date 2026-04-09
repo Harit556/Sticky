@@ -43,6 +43,105 @@ struct StickyTodosApp: App {
                     openWindow(id: "sticky", value: note.id)
                 }
 
+                Button("Open All Notes") {
+                    openAllNotesSideBySide()
+                }
+                .keyboardShortcut("o", modifiers: [.command, .shift])
+
+                Divider()
+
+                Button("Zapier Integration...") {
+                    NSApp.activate(ignoringOtherApps: true)
+                    openWindow(id: "zapier-settings")
+                }
+            }
+
+            CommandMenu("Settings") {
+                Menu("Sound Effect") {
+                    ForEach(SoundEffect.presets) { sound in
+                        Button {
+                            SoundManager.shared.selectedSound = sound
+                            SoundManager.shared.previewSound(sound)
+                        } label: {
+                            if SoundManager.shared.selectedSound == sound {
+                                Text("✓ \(sound.displayName)")
+                            } else {
+                                Text("   \(sound.displayName)")
+                            }
+                        }
+                    }
+                }
+
+                Menu("Confetti Size") {
+                    ForEach(ConfettiSize.allCases) { size in
+                        Button {
+                            ConfettiSettings.shared.size = size
+                        } label: {
+                            if ConfettiSettings.shared.size == size {
+                                Text("✓ \(size.displayName)")
+                            } else {
+                                Text("   \(size.displayName)")
+                            }
+                        }
+                    }
+                }
+
+                Menu("Confetti Amount") {
+                    ForEach(ConfettiAmount.allCases) { amount in
+                        Button {
+                            ConfettiSettings.shared.amount = amount
+                        } label: {
+                            if ConfettiSettings.shared.amount == amount {
+                                Text("✓ \(amount.displayName)")
+                            } else {
+                                Text("   \(amount.displayName)")
+                            }
+                        }
+                    }
+                }
+
+                Menu("Confetti Gravity") {
+                    ForEach(ConfettiGravity.allCases) { gravity in
+                        Button {
+                            ConfettiSettings.shared.gravity = gravity
+                        } label: {
+                            if ConfettiSettings.shared.gravity == gravity {
+                                Text("✓ \(gravity.displayName)")
+                            } else {
+                                Text("   \(gravity.displayName)")
+                            }
+                        }
+                    }
+                }
+
+                Menu("Confetti Volume") {
+                    ForEach(ConfettiVolume.allCases) { volume in
+                        Button {
+                            ConfettiSettings.shared.volume = volume
+                        } label: {
+                            if ConfettiSettings.shared.volume == volume {
+                                Text("✓ \(volume.displayName)")
+                            } else {
+                                Text("   \(volume.displayName)")
+                            }
+                        }
+                    }
+                }
+
+                Menu("Confetti Colour") {
+                    ForEach(ConfettiColorScheme.allCases) { scheme in
+                        Button {
+                            ConfettiSettings.shared.colorScheme = scheme
+                        } label: {
+                            if ConfettiSettings.shared.colorScheme == scheme {
+                                Text("✓ \(scheme.displayName)")
+                            } else {
+                                Text("   \(scheme.displayName)")
+                            }
+                        }
+                    }
+                }
+
                 Divider()
 
                 Button("Zapier Integration...") {
@@ -57,6 +156,36 @@ struct StickyTodosApp: App {
             ZapierSettingsView()
         }
         .windowResizability(.contentSize)
+    }
+}
+
+extension StickyTodosApp {
+    func openAllNotesSideBySide() {
+        let noteWidth = 280.0
+        let noteHeight = 400.0
+        let gap = 12.0
+        let screenWidth = Double(NSScreen.main?.frame.width ?? 1440)
+        let screenHeight = Double(NSScreen.main?.frame.height ?? 900)
+        let totalWidth = noteWidth * Double(store.stickies.count) + gap * Double(max(0, store.stickies.count - 1))
+        let startX = max(20, (screenWidth - totalWidth) / 2)
+        let startY = (screenHeight - noteHeight) / 2
+
+        for (index, sticky) in store.stickies.enumerated() {
+            // Update stored frame so windows line up
+            store.updateWindowFrame(
+                for: sticky.id,
+                frame: CGRect(
+                    x: startX + Double(index) * (noteWidth + gap),
+                    y: startY,
+                    width: noteWidth,
+                    height: noteHeight
+                )
+            )
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + Double(index) * 0.15) {
+                self.openWindow(id: "sticky", value: sticky.id)
+            }
+        }
     }
 }
 
