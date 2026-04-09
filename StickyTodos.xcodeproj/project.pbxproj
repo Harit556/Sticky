@@ -1,0 +1,494 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A10001 /* StickyTodosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10001; };
+		A10002 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10002; };
+		A10003 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10003; };
+		A10004 /* TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10004; };
+		A10005 /* StickyNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10005; };
+		A10006 /* StickyColorTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10006; };
+		A10007 /* StickyNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10007; };
+		A10008 /* TodoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10008; };
+		A10009 /* TodoRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10009; };
+		A10010 /* TaskCountBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10010; };
+		A10011 /* PeelShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10011; };
+		A10012 /* ConfettiOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10012; };
+		A10013 /* ZapierSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10013; };
+		A10014 /* ConfettiScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10014; };
+		A10015 /* ConfettiEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10015; };
+		A10016 /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10016; };
+		A10017 /* StickyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10017; };
+		A10018 /* WebhookEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10018; };
+		A10019 /* ZapierWebhookService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10019; };
+		A10020 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B10020; };
+		A10021 /* ConfettiWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10023; };
+		A10022 /* BackspaceTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10024; };
+		A10030 /* confetti.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B10030; };
+		A10031 /* Yay.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B10031; };
+		A10032 /* Yippie.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B10032; };
+		A10033 /* Cat Laugh.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B10033; };
+		A10034 /* Apple Pay.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B10034; };
+		A10035 /* Rizz.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B10035; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		B10001 /* StickyTodosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickyTodosApp.swift; sourceTree = "<group>"; };
+		B10002 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B10003 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		B10004 /* TodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.swift; sourceTree = "<group>"; };
+		B10005 /* StickyNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickyNote.swift; sourceTree = "<group>"; };
+		B10006 /* StickyColorTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickyColorTheme.swift; sourceTree = "<group>"; };
+		B10007 /* StickyNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickyNoteView.swift; sourceTree = "<group>"; };
+		B10008 /* TodoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListView.swift; sourceTree = "<group>"; };
+		B10009 /* TodoRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoRowView.swift; sourceTree = "<group>"; };
+		B10010 /* TaskCountBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCountBadgeView.swift; sourceTree = "<group>"; };
+		B10011 /* PeelShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeelShadowView.swift; sourceTree = "<group>"; };
+		B10012 /* ConfettiOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiOverlayView.swift; sourceTree = "<group>"; };
+		B10013 /* ZapierSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZapierSettingsView.swift; sourceTree = "<group>"; };
+		B10014 /* ConfettiScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiScene.swift; sourceTree = "<group>"; };
+		B10015 /* ConfettiEmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiEmitter.swift; sourceTree = "<group>"; };
+		B10016 /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
+		B10017 /* StickyStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickyStore.swift; sourceTree = "<group>"; };
+		B10018 /* WebhookEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebhookEvent.swift; sourceTree = "<group>"; };
+		B10019 /* ZapierWebhookService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZapierWebhookService.swift; sourceTree = "<group>"; };
+		B10020 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B10021 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B10022 /* StickyTodos.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StickyTodos.entitlements; sourceTree = "<group>"; };
+		B10023 /* ConfettiWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiWindowController.swift; sourceTree = "<group>"; };
+		B10024 /* BackspaceTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackspaceTextField.swift; sourceTree = "<group>"; };
+		B10030 /* confetti.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = confetti.mp3; sourceTree = "<group>"; };
+		B10031 /* Yay.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Yay.mp3; sourceTree = "<group>"; };
+		B10032 /* Yippie.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Yippie.mp3; sourceTree = "<group>"; };
+		B10033 /* Cat Laugh.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Cat Laugh.mp3"; sourceTree = "<group>"; };
+		B10034 /* Apple Pay.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Apple Pay.mp3"; sourceTree = "<group>"; };
+		B10035 /* Rizz.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Rizz.mp3; sourceTree = "<group>"; };
+		P10001 /* StickyTodos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StickyTodos.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F10001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		G10000 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				G10001 /* StickyTodos */,
+				G10099 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		G10001 /* StickyTodos */ = {
+			isa = PBXGroup;
+			children = (
+				G10002 /* App */,
+				G10003 /* Models */,
+				G10004 /* Views */,
+				G10005 /* Confetti */,
+				G10006 /* Audio */,
+				G10007 /* Persistence */,
+				G10008 /* Integration */,
+				B10020 /* Assets.xcassets */,
+				B10021 /* Info.plist */,
+				B10022 /* StickyTodos.entitlements */,
+			);
+			path = StickyTodos;
+			sourceTree = "<group>";
+		};
+		G10002 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				B10001 /* StickyTodosApp.swift */,
+				B10002 /* AppDelegate.swift */,
+				B10003 /* AppState.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		G10003 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B10004 /* TodoItem.swift */,
+				B10005 /* StickyNote.swift */,
+				B10006 /* StickyColorTheme.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		G10004 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B10007 /* StickyNoteView.swift */,
+				B10008 /* TodoListView.swift */,
+				B10009 /* TodoRowView.swift */,
+				B10010 /* TaskCountBadgeView.swift */,
+				B10011 /* PeelShadowView.swift */,
+				B10012 /* ConfettiOverlayView.swift */,
+				B10013 /* ZapierSettingsView.swift */,
+				B10024 /* BackspaceTextField.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		G10005 /* Confetti */ = {
+			isa = PBXGroup;
+			children = (
+				B10014 /* ConfettiScene.swift */,
+				B10015 /* ConfettiEmitter.swift */,
+				B10023 /* ConfettiWindowController.swift */,
+			);
+			path = Confetti;
+			sourceTree = "<group>";
+		};
+		G10006 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				B10016 /* SoundManager.swift */,
+				G10009 /* Resources */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		G10009 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B10030 /* confetti.mp3 */,
+				B10031 /* Yay.mp3 */,
+				B10032 /* Yippie.mp3 */,
+				B10033 /* Cat Laugh.mp3 */,
+				B10034 /* Apple Pay.mp3 */,
+				B10035 /* Rizz.mp3 */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		G10007 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				B10017 /* StickyStore.swift */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+		G10008 /* Integration */ = {
+			isa = PBXGroup;
+			children = (
+				B10018 /* WebhookEvent.swift */,
+				B10019 /* ZapierWebhookService.swift */,
+			);
+			path = Integration;
+			sourceTree = "<group>";
+		};
+		G10099 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				P10001 /* StickyTodos.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		T10001 /* StickyTodos */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CL10002 /* Build configuration list for PBXNativeTarget "StickyTodos" */;
+			buildPhases = (
+				S10001 /* Sources */,
+				F10001 /* Frameworks */,
+				R10001 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = StickyTodos;
+			productName = StickyTodos;
+			productReference = P10001 /* StickyTodos.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		PR10001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					T10001 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = CL10001 /* Build configuration list for PBXProject "StickyTodos" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = G10000 /* Root */;
+			productRefGroup = G10099 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				T10001 /* StickyTodos */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		R10001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10020 /* Assets.xcassets in Resources */,
+				A10030 /* confetti.mp3 in Resources */,
+				A10031 /* Yay.mp3 in Resources */,
+				A10032 /* Yippie.mp3 in Resources */,
+				A10033 /* Cat Laugh.mp3 in Resources */,
+				A10034 /* Apple Pay.mp3 in Resources */,
+				A10035 /* Rizz.mp3 in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		S10001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10001 /* StickyTodosApp.swift in Sources */,
+				A10002 /* AppDelegate.swift in Sources */,
+				A10003 /* AppState.swift in Sources */,
+				A10004 /* TodoItem.swift in Sources */,
+				A10005 /* StickyNote.swift in Sources */,
+				A10006 /* StickyColorTheme.swift in Sources */,
+				A10007 /* StickyNoteView.swift in Sources */,
+				A10008 /* TodoListView.swift in Sources */,
+				A10009 /* TodoRowView.swift in Sources */,
+				A10010 /* TaskCountBadgeView.swift in Sources */,
+				A10011 /* PeelShadowView.swift in Sources */,
+				A10012 /* ConfettiOverlayView.swift in Sources */,
+				A10013 /* ZapierSettingsView.swift in Sources */,
+				A10014 /* ConfettiScene.swift in Sources */,
+				A10015 /* ConfettiEmitter.swift in Sources */,
+				A10016 /* SoundManager.swift in Sources */,
+				A10017 /* StickyStore.swift in Sources */,
+				A10018 /* WebhookEvent.swift in Sources */,
+				A10019 /* ZapierWebhookService.swift in Sources */,
+				A10021 /* ConfettiWindowController.swift in Sources */,
+				A10022 /* BackspaceTextField.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		BC10001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		BC10002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		BC10003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = StickyTodos/StickyTodos.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"StickyTodos/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = StickyTodos/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stickytodos.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		BC10004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = StickyTodos/StickyTodos.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"StickyTodos/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = StickyTodos/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stickytodos.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CL10001 /* Build configuration list for PBXProject "StickyTodos" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC10001 /* Debug */,
+				BC10002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CL10002 /* Build configuration list for PBXNativeTarget "StickyTodos" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC10003 /* Debug */,
+				BC10004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+	};
+	rootObject = PR10001 /* Project object */;
+}
