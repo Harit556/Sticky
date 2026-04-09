@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A10001 /* StickyTodosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10001; };
+		A10001 /* StickyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10001; };
 		A10002 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10002; };
 		A10003 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10003; };
 		A10004 /* TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10004; };
@@ -41,7 +41,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		B10001 /* StickyTodosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickyTodosApp.swift; sourceTree = "<group>"; };
+		B10001 /* StickyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickyApp.swift; sourceTree = "<group>"; };
 		B10002 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B10003 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		B10004 /* TodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.swift; sourceTree = "<group>"; };
@@ -63,7 +63,7 @@
 		B10019 /* ZapierWebhookService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZapierWebhookService.swift; sourceTree = "<group>"; };
 		B10020 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B10021 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B10022 /* StickyTodos.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StickyTodos.entitlements; sourceTree = "<group>"; };
+		B10022 /* Sticky.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Sticky.entitlements; sourceTree = "<group>"; };
 		B10023 /* ConfettiWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiWindowController.swift; sourceTree = "<group>"; };
 		B10024 /* BackspaceTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackspaceTextField.swift; sourceTree = "<group>"; };
 		B10026 /* SettingsPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPanelView.swift; sourceTree = "<group>"; };
@@ -74,7 +74,7 @@
 		B10033 /* Cat Laugh.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Cat Laugh.mp3"; sourceTree = "<group>"; };
 		B10034 /* Apple Pay.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Apple Pay.mp3"; sourceTree = "<group>"; };
 		B10035 /* Rizz.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Rizz.mp3; sourceTree = "<group>"; };
-		P10001 /* StickyTodos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StickyTodos.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		P10001 /* Sticky.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sticky.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,12 +91,12 @@
 		G10000 /* Root */ = {
 			isa = PBXGroup;
 			children = (
-				G10001 /* StickyTodos */,
+				G10001 /* Sticky */,
 				G10099 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		G10001 /* StickyTodos */ = {
+		G10001 /* Sticky */ = {
 			isa = PBXGroup;
 			children = (
 				G10002 /* App */,
@@ -108,15 +108,15 @@
 				G10008 /* Integration */,
 				B10020 /* Assets.xcassets */,
 				B10021 /* Info.plist */,
-				B10022 /* StickyTodos.entitlements */,
+				B10022 /* Sticky.entitlements */,
 			);
-			path = StickyTodos;
+			path = Sticky;
 			sourceTree = "<group>";
 		};
 		G10002 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				B10001 /* StickyTodosApp.swift */,
+				B10001 /* StickyApp.swift */,
 				B10002 /* AppDelegate.swift */,
 				B10003 /* AppState.swift */,
 			);
@@ -203,7 +203,7 @@
 		G10099 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				P10001 /* StickyTodos.app */,
+				P10001 /* Sticky.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -211,9 +211,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		T10001 /* StickyTodos */ = {
+		T10001 /* Sticky */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CL10002 /* Build configuration list for PBXNativeTarget "StickyTodos" */;
+			buildConfigurationList = CL10002 /* Build configuration list for PBXNativeTarget "Sticky" */;
 			buildPhases = (
 				S10001 /* Sources */,
 				F10001 /* Frameworks */,
@@ -223,9 +223,9 @@
 			);
 			dependencies = (
 			);
-			name = StickyTodos;
-			productName = StickyTodos;
-			productReference = P10001 /* StickyTodos.app */;
+			name = Sticky;
+			productName = Sticky;
+			productReference = P10001 /* Sticky.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -243,7 +243,7 @@
 					};
 				};
 			};
-			buildConfigurationList = CL10001 /* Build configuration list for PBXProject "StickyTodos" */;
+			buildConfigurationList = CL10001 /* Build configuration list for PBXProject "Sticky" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -256,7 +256,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				T10001 /* StickyTodos */,
+				T10001 /* Sticky */,
 			);
 		};
 /* End PBXProject section */
@@ -283,7 +283,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A10001 /* StickyTodosApp.swift in Sources */,
+				A10001 /* StickyApp.swift in Sources */,
 				A10002 /* AppDelegate.swift in Sources */,
 				A10003 /* AppState.swift in Sources */,
 				A10004 /* TodoItem.swift in Sources */,
@@ -429,14 +429,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = StickyTodos/StickyTodos.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Sticky/Sticky.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"StickyTodos/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Sticky/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = StickyTodos/Info.plist;
+				INFOPLIST_FILE = Sticky/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -456,14 +456,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = StickyTodos/StickyTodos.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Sticky/Sticky.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"StickyTodos/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Sticky/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = StickyTodos/Info.plist;
+				INFOPLIST_FILE = Sticky/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -481,7 +481,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CL10001 /* Build configuration list for PBXProject "StickyTodos" */ = {
+		CL10001 /* Build configuration list for PBXProject "Sticky" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BC10001 /* Debug */,
@@ -490,7 +490,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CL10002 /* Build configuration list for PBXNativeTarget "StickyTodos" */ = {
+		CL10002 /* Build configuration list for PBXNativeTarget "Sticky" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BC10003 /* Debug */,

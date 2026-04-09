@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct StickyTodosApp: App {
+struct StickyApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject private var store = StickyStore.shared
     @Environment(\.openWindow) var openWindow
@@ -165,7 +165,7 @@ struct StickyTodosApp: App {
     }
 }
 
-extension StickyTodosApp {
+extension StickyApp {
     func resetApp() {
         let alert = NSAlert()
         alert.messageText = "Reset Sticky?"
