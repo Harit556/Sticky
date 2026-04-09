@@ -62,6 +62,19 @@ struct StickyNoteView: View {
                 onDeleteNote: { deleteCurrentNote() }
             )
         }
+        .onChange(of: showSettings) { _, isShowing in
+            if isShowing {
+                // Elevate the popover window above all stickies
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                    for window in NSApplication.shared.windows where window.isVisible {
+                        let name = String(describing: type(of: window))
+                        if name.contains("Popover") {
+                            window.level = NSWindow.Level(Int(CGShieldingWindowLevel()))
+                        }
+                    }
+                }
+            }
+        }
         .onAppear {
             configureWindow()
             openFirstLaunchStickies()
