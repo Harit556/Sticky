@@ -4,6 +4,7 @@ struct SettingsPanelView: View {
     @Binding var sticky: StickyNote
     let colorScheme: ColorScheme
     var onTestConfetti: () -> Void
+    var onDuplicateNote: (() -> Void)? = nil
     var onDeleteNote: (() -> Void)? = nil
 
     @StateObject private var soundManager = SoundManager.shared
@@ -120,8 +121,13 @@ struct SettingsPanelView: View {
                 sticky.confettiStyle = nil
             }
 
-            if let onDeleteNote = onDeleteNote {
+            if let onDuplicateNote = onDuplicateNote {
                 menuDivider
+                menuItem("Duplicate This Note") { onDuplicateNote() }
+            }
+
+            if let onDeleteNote = onDeleteNote {
+                if onDuplicateNote == nil { menuDivider }
                 Button(action: onDeleteNote) {
                     HStack {
                         Image(systemName: "trash")

@@ -75,6 +75,7 @@ struct StickyNoteView: View {
                 sticky: sticky,
                 colorScheme: colorScheme,
                 onTestConfetti: { fireTestConfetti() },
+                onDuplicateNote: { duplicateCurrentNote() },
                 onDeleteNote: { deleteCurrentNote() }
             )
         }
@@ -98,7 +99,9 @@ struct StickyNoteView: View {
             openRemainingStickies()
         }
         .onChange(of: note.isAlwaysOnTop) { _, isOnTop in setWindowLevel(floating: isOnTop) }
-        .background(WindowAccessor(window: $stickyWindow))
+        .background(WindowAccessor(window: $stickyWindow) { window in
+            startTrackingWindowPosition(window)
+        })
     }
 
     // MARK: - Window Management
@@ -165,6 +168,28 @@ struct StickyNoteView: View {
         window.maxSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: minimizedHeight)
     }
 
+    private func startTrackingWindowPosition(_ window: NSWindow) {
+        // Save position whenever the window stops moving or resizing
+        NotificationCenter.default.addObserver(
+            forName: NSWindow.didMoveNotification,
+            object: window,
+            queue: .main
+        ) { [weak window] _ in
+            guard let frame = window?.frame else { return }
+            let note = sticky.wrappedValue
+            guard !note.isMinimized else { return } // don't overwrite full-size frame while minimised
+            store.updateWindowFrame(for: stickyID, frame: frame)
+        }
+        NotificationCenter.default.addObserver(
+            forName: NSWindow.didEndLiveResizeNotification,
+            object: window,
+            queue: .main
+        ) { [weak window] _ in
+            guard let frame = window?.frame else { return }
+            store.updateWindowFrame(for: stickyID, frame: frame)
+        }
+    }
+
     private func setWindowLevel(floating: Bool) {
         NSApplication.shared.keyWindow?.level = floating ? .floating : .normal
     }
@@ -173,6 +198,15 @@ struct StickyNoteView: View {
         let currentFrame = NSApplication.shared.keyWindow?.frame
         let note = store.createSticky(nextToFrame: currentFrame)
         openWindow(id: "sticky", value: note.id)
+    }
+
+    private func duplicateCurrentNote() {
+        showSettings = false
+        if let copy = store.duplicateSticky(id: stickyID) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                openWindow(id: "sticky", value: copy.id)
+            }
+        }
     }
 
     private func deleteCurrentNote() {
@@ -234,9 +268,15 @@ struct StickyNoteView: View {
 
 private struct WindowAccessor: NSViewRepresentable {
     @Binding var window: NSWindow?
+    var onWindow: ((NSWindow) -> Void)? = nil
     func makeNSView(context: Context) -> NSView {
         let view = NSView()
-        DispatchQueue.main.async { self.window = view.window }
+        DispatchQueue.main.async {
+            if let w = view.window {
+                self.window = w
+                self.onWindow?(w)
+            }
+        }
         return view
     }
     func updateNSView(_ nsView: NSView, context: Context) {}

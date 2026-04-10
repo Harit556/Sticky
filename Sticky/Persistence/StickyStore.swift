@@ -81,6 +81,31 @@ class StickyStore: ObservableObject {
         return note
     }
 
+    @discardableResult
+    func duplicateSticky(id: UUID) -> StickyNote? {
+        guard let original = sticky(for: id) else { return nil }
+        let copy = StickyNote(
+            title: original.title,
+            tasks: original.tasks.map { TodoItem(title: $0.title, sortOrder: $0.sortOrder) },
+            colorTheme: original.colorTheme,
+            windowFrame: original.windowFrame.map {
+                CodableRect(x: $0.x + 20, y: $0.y - 20, width: $0.width, height: $0.height)
+            },
+            isAlwaysOnTop: original.isAlwaysOnTop,
+            autoSortCompleted: original.autoSortCompleted,
+            soundEffect: original.soundEffect,
+            confettiSize: original.confettiSize,
+            confettiAmount: original.confettiAmount,
+            confettiGravity: original.confettiGravity,
+            confettiVolume: original.confettiVolume,
+            confettiColorScheme: original.confettiColorScheme,
+            confettiStyle: original.confettiStyle
+        )
+        stickies.append(copy)
+        scheduleSave()
+        return copy
+    }
+
     func deleteSticky(id: UUID) {
         stickies.removeAll { $0.id == id }
         scheduleSave()
