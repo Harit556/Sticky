@@ -44,6 +44,7 @@ struct StickyNote: Identifiable, Codable, Hashable, Equatable {
     var confettiGravity: ConfettiGravity?
     var confettiVolume: ConfettiVolume?
     var confettiColorScheme: ConfettiColorScheme?
+    var confettiStyle: ConfettiStyle?
 
     var remainingCount: Int { tasks.filter { !$0.isCompleted }.count }
     var totalCount: Int { tasks.count }
@@ -64,7 +65,8 @@ struct StickyNote: Identifiable, Codable, Hashable, Equatable {
         confettiAmount: ConfettiAmount? = nil,
         confettiGravity: ConfettiGravity? = nil,
         confettiVolume: ConfettiVolume? = nil,
-        confettiColorScheme: ConfettiColorScheme? = nil
+        confettiColorScheme: ConfettiColorScheme? = nil,
+        confettiStyle: ConfettiStyle? = nil
     ) {
         self.id = id
         self.title = title
@@ -82,6 +84,7 @@ struct StickyNote: Identifiable, Codable, Hashable, Equatable {
         self.confettiGravity = confettiGravity
         self.confettiVolume = confettiVolume
         self.confettiColorScheme = confettiColorScheme
+        self.confettiStyle = confettiStyle
     }
 
     mutating func addTask(title: String = "") {

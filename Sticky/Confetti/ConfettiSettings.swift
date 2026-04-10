@@ -172,6 +172,20 @@ enum ConfettiColorScheme: String, CaseIterable, Identifiable, Codable, Hashable 
     }
 }
 
+enum ConfettiStyle: String, CaseIterable, Identifiable, Codable, Hashable {
+    case classic, burst, stars, emoji, minimal
+    var id: String { rawValue }
+    var displayName: String {
+        switch self {
+        case .classic: return "Classic"
+        case .burst:   return "Burst"
+        case .stars:   return "Stars"
+        case .emoji:   return "Emoji"
+        case .minimal: return "Minimal"
+        }
+    }
+}
+
 @MainActor
 class ConfettiSettings: ObservableObject {
     static let shared = ConfettiSettings()
@@ -191,12 +205,16 @@ class ConfettiSettings: ObservableObject {
     @Published var gravity: ConfettiGravity {
         didSet { UserDefaults.standard.set(gravity.rawValue, forKey: "confettiGravity") }
     }
+    @Published var style: ConfettiStyle {
+        didSet { UserDefaults.standard.set(style.rawValue, forKey: "confettiStyle") }
+    }
 
     private init() {
-        self.size = ConfettiSize(rawValue: UserDefaults.standard.string(forKey: "confettiSize") ?? "") ?? .medium
-        self.amount = ConfettiAmount(rawValue: UserDefaults.standard.string(forKey: "confettiAmount") ?? "") ?? .normal
-        self.volume = ConfettiVolume(rawValue: UserDefaults.standard.string(forKey: "confettiVolume") ?? "") ?? .medium
+        self.size        = ConfettiSize(rawValue: UserDefaults.standard.string(forKey: "confettiSize") ?? "") ?? .medium
+        self.amount      = ConfettiAmount(rawValue: UserDefaults.standard.string(forKey: "confettiAmount") ?? "") ?? .normal
+        self.volume      = ConfettiVolume(rawValue: UserDefaults.standard.string(forKey: "confettiVolume") ?? "") ?? .medium
         self.colorScheme = ConfettiColorScheme(rawValue: UserDefaults.standard.string(forKey: "confettiColorScheme") ?? "") ?? .rainbow
-        self.gravity = ConfettiGravity(rawValue: UserDefaults.standard.string(forKey: "confettiGravity") ?? "") ?? .medium
+        self.gravity     = ConfettiGravity(rawValue: UserDefaults.standard.string(forKey: "confettiGravity") ?? "") ?? .medium
+        self.style       = ConfettiStyle(rawValue: UserDefaults.standard.string(forKey: "confettiStyle") ?? "") ?? .classic
     }
 }

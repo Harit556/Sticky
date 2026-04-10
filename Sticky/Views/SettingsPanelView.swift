@@ -51,6 +51,14 @@ struct SettingsPanelView: View {
             menuDivider
 
             menuSection("Confetti")
+            confettiPickerRow("Style") {
+                Picker("", selection: Binding(
+                    get: { sticky.confettiStyle ?? ConfettiSettings.shared.style },
+                    set: { sticky.confettiStyle = $0 }
+                )) {
+                    ForEach(ConfettiStyle.allCases) { Text($0.displayName).tag($0) }
+                }.pickerStyle(.menu).onChange(of: sticky.confettiStyle) { onTestConfetti() }
+            }
             confettiPickerRow("Size") {
                 Picker("", selection: Binding(
                     get: { sticky.confettiSize ?? ConfettiSettings.shared.size },
@@ -109,6 +117,7 @@ struct SettingsPanelView: View {
                 sticky.confettiGravity = nil
                 sticky.confettiVolume = nil
                 sticky.confettiColorScheme = nil
+                sticky.confettiStyle = nil
             }
 
             if let onDeleteNote = onDeleteNote {

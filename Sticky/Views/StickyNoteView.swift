@@ -196,7 +196,8 @@ struct StickyNoteView: View {
                     size: note.confettiSize,
                     amount: note.confettiAmount,
                     gravity: note.confettiGravity,
-                    colorScheme: note.confettiColorScheme
+                    colorScheme: note.confettiColorScheme,
+                    style: note.confettiStyle
                 )
             }
         }
@@ -218,7 +219,8 @@ struct StickyNoteView: View {
                     size: note.confettiSize,
                     amount: note.confettiAmount,
                     gravity: note.confettiGravity,
-                    colorScheme: note.confettiColorScheme
+                    colorScheme: note.confettiColorScheme,
+                    style: note.confettiStyle
                 )
             }
             if let task = task {

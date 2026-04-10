@@ -142,6 +142,20 @@ struct StickyApp: App {
                     }
                 }
 
+                Menu("Confetti Style") {
+                    ForEach(ConfettiStyle.allCases) { s in
+                        Button {
+                            ConfettiSettings.shared.style = s
+                        } label: {
+                            if ConfettiSettings.shared.style == s {
+                                Text("✓ \(s.displayName)")
+                            } else {
+                                Text("   \(s.displayName)")
+                            }
+                        }
+                    }
+                }
+
                 Divider()
 
                 Button("Zapier Integration...") {

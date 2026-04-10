@@ -25,11 +25,12 @@ class ConfettiWindowController {
         size: ConfettiSize? = nil,
         amount: ConfettiAmount? = nil,
         gravity: ConfettiGravity? = nil,
-        colorScheme: ConfettiColorScheme? = nil
+        colorScheme: ConfettiColorScheme? = nil,
+        style: ConfettiStyle? = nil
     ) {
         ensureWindow()
         window?.orderFrontRegardless()
-        scene?.triggerConfettiDirect(at: CGPoint(x: point.x, y: point.y), size: size, amount: amount, gravity: gravity, colorScheme: colorScheme)
+        scene?.triggerConfettiDirect(at: CGPoint(x: point.x, y: point.y), size: size, amount: amount, gravity: gravity, colorScheme: colorScheme, style: style)
 
         // Auto-hide after particles settle and fade (3s pile + 1s fade buffer)
         scheduleHide()
