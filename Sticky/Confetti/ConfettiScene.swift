@@ -60,12 +60,14 @@ class ConfettiScene: SKScene, SKPhysicsContactDelegate {
         applyGravity(gravity)
         evictIfNeeded(incoming: count)
 
+        let effectiveGravity = gravity ?? defaults.gravity
+
         switch theStyle {
         case .classic: spawnClassic(at: point, colors: colors, texSize: texSize, scale: scale, count: count)
         case .burst:   spawnBurst(at: point, colors: colors, texSize: texSize, scale: scale, count: count)
         case .stars:   spawnStars(at: point, colors: colors, scale: scale, count: count)
-        case .emoji:   spawnEmoji(at: point)
-        case .minimal: spawnMinimal(at: point, colors: colors)
+        case .emoji:   spawnEmoji(at: point, scale: scale, count: count, gravity: effectiveGravity)
+        case .minimal: spawnMinimal(at: point, colors: colors, texSize: texSize, scale: scale, count: count)
         }
 
         scheduleFade()
@@ -124,31 +126,45 @@ class ConfettiScene: SKScene, SKPhysicsContactDelegate {
 
     private let celebrationEmoji = ["🎉", "✨", "🌟", "🎊", "💫", "⭐️", "🥳", "🎈"]
 
-    private func spawnEmoji(at point: CGPoint) {
-        let count = Int.random(in: 4...7)
-        for i in 0..<count {
+    private func spawnEmoji(at point: CGPoint, scale: CGFloat, count: Int, gravity: ConfettiGravity) {
+        // Map particle count to a sensible emoji count (few=2, normal=5, lots=10)
+        let emojiCount = count == 0 ? 0 : max(2, count / 22)
+        guard emojiCount > 0 else { return }
+
+        // Base font size driven by the Size setting
+        let baseFontSize = 24.0 + (scale - 0.7) / (2.0 - 0.7) * 28.0  // maps scale ~0.7→24pt, ~2.0→52pt
+
+        // Gravity controls float direction: low=floats up high, medium=gentle rise, high=falls down
+        let floatY: ClosedRange<CGFloat>
+        switch gravity {
+        case .low:    floatY =  80...160
+        case .medium: floatY =  30...90
+        case .high:   floatY = -60...(-10)
+        }
+
+        for i in 0..<emojiCount {
             let label = SKLabelNode(text: celebrationEmoji.randomElement()!)
             label.name = "confetti"
-            label.fontSize = CGFloat.random(in: 28...48)
-            label.position = CGPoint(x: point.x + .random(in: -60...60),
+            label.fontSize = CGFloat.random(in: (baseFontSize * 0.75)...(baseFontSize * 1.25))
+            label.position = CGPoint(x: point.x + .random(in: -70...70),
                                      y: point.y + .random(in: -20...20))
             label.setScale(0)
             label.zPosition = 10
             addChild(label)
 
-            let delay    = SKAction.wait(forDuration: Double(i) * 0.08)
-            let popIn    = SKAction.scale(to: 1.0, duration: 0.18)
+            let delay   = SKAction.wait(forDuration: Double(i) * 0.1)
+            let popIn   = SKAction.scale(to: 1.0, duration: 0.18)
             popIn.timingMode = .easeOut
-            let floatUp  = SKAction.moveBy(x: .random(in: -30...30), y: .random(in: 60...140), duration: 1.2)
-            floatUp.timingMode = .easeIn
-            let fadeOut  = SKAction.fadeOut(withDuration: 0.5)
-            let remove   = SKAction.removeFromParent()
+            let drift   = SKAction.moveBy(x: .random(in: -40...40), y: .random(in: floatY), duration: 1.3)
+            drift.timingMode = .easeIn
+            let fadeOut = SKAction.fadeOut(withDuration: 0.5)
+            let remove  = SKAction.removeFromParent()
 
             label.run(SKAction.sequence([
                 delay,
                 SKAction.group([popIn, SKAction.sequence([
-                    SKAction.wait(forDuration: 0.5),
-                    SKAction.group([floatUp, fadeOut])
+                    SKAction.wait(forDuration: 0.45),
+                    SKAction.group([drift, fadeOut])
                 ])]),
                 remove
             ]))
@@ -157,16 +173,19 @@ class ConfettiScene: SKScene, SKPhysicsContactDelegate {
 
     // MARK: - Style: Minimal (3–5 large slow pieces)
 
-    private func spawnMinimal(at point: CGPoint, colors: [NSColor]) {
-        let count = Int.random(in: 3...5)
-        let bigTexSize = CGSize(width: 16, height: 10)
-        let bigScale: CGFloat = 2.5
-        for _ in 0..<count {
-            let node = makeRect(texSize: bigTexSize, scale: bigScale, color: colors.randomElement()!)
+    private func spawnMinimal(at point: CGPoint, colors: [NSColor], texSize: CGSize, scale: CGFloat, count: Int) {
+        // Map particle count to a small number of big slow pieces (few=2, normal=4, lots=8)
+        let pieceCount = count == 0 ? 0 : max(2, count / 28)
+        guard pieceCount > 0 else { return }
+
+        // Scale up the pieces to make them feel "chunky"
+        let bigScale = scale * 2.2
+        for _ in 0..<pieceCount {
+            let node = makeRect(texSize: texSize, scale: bigScale, color: colors.randomElement()!)
             node.position = CGPoint(x: point.x + .random(in: -40...40),
                                     y: point.y + .random(in: -5...5))
             let angle = CGFloat.random(in: .pi * 0.3 ... .pi * 0.7)
-            let speed = CGFloat.random(in: 80...180)
+            let speed = CGFloat.random(in: 80...200)
             node.physicsBody?.velocity = CGVector(dx: cos(angle) * speed * (Bool.random() ? 1 : -1),
                                                    dy: sin(angle) * speed)
             node.physicsBody?.angularVelocity = .random(in: -3...3)
