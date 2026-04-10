@@ -2,6 +2,7 @@ import AppKit
 import AVFoundation
 
 enum SoundEffect: String, CaseIterable, Identifiable, Codable, Hashable {
+    case none = "__none__"
     case confetti = "confetti"
     case yay = "Yay"
     case yippie = "Yippie"
@@ -15,6 +16,7 @@ enum SoundEffect: String, CaseIterable, Identifiable, Codable, Hashable {
 
     var displayName: String {
         switch self {
+        case .none: return "None"
         case .confetti: return "🎉 Confetti"
         case .yay: return "🥳 Yay"
         case .yippie: return "🎊 Yippie"
@@ -81,6 +83,8 @@ class SoundManager: ObservableObject {
     }
 
     func playCompletionSound(sound: SoundEffect? = nil, volume: ConfettiVolume? = nil) {
+        let effectiveSound = sound ?? selectedSound
+        guard effectiveSound != .none else { return }
         let vol = (volume ?? ConfettiSettings.shared.volume).volume
         guard vol > 0 else { return }
 
@@ -143,10 +147,9 @@ class SoundManager: ObservableObject {
 
     private func soundURL(for sound: SoundEffect) -> URL? {
         switch sound {
-        case .custom:
-            return customSoundURL
-        default:
-            return Bundle.main.url(forResource: sound.rawValue, withExtension: "mp3")
+        case .none: return nil
+        case .custom: return customSoundURL
+        default: return Bundle.main.url(forResource: sound.rawValue, withExtension: "mp3")
         }
     }
 

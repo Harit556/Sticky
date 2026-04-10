@@ -10,6 +10,7 @@
 		A10001 /* StickyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10001; };
 		A10002 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10002; };
 		A10003 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10003; };
+		A10041 /* GlobalHotkeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10041; };
 		A10004 /* TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10004; };
 		A10005 /* StickyNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10005; };
 		A10006 /* StickyColorTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10006; };
@@ -45,6 +46,7 @@
 		B10001 /* StickyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickyApp.swift; sourceTree = "<group>"; };
 		B10002 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B10003 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		B10041 /* GlobalHotkeyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalHotkeyManager.swift; sourceTree = "<group>"; };
 		B10004 /* TodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.swift; sourceTree = "<group>"; };
 		B10005 /* StickyNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickyNote.swift; sourceTree = "<group>"; };
 		B10006 /* StickyColorTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickyColorTheme.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				B10001 /* StickyApp.swift */,
 				B10002 /* AppDelegate.swift */,
 				B10003 /* AppState.swift */,
+				B10041 /* GlobalHotkeyManager.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -290,6 +293,7 @@
 				A10001 /* StickyApp.swift in Sources */,
 				A10002 /* AppDelegate.swift in Sources */,
 				A10003 /* AppState.swift in Sources */,
+				A10041 /* GlobalHotkeyManager.swift in Sources */,
 				A10004 /* TodoItem.swift in Sources */,
 				A10005 /* StickyNote.swift in Sources */,
 				A10006 /* StickyColorTheme.swift in Sources */,

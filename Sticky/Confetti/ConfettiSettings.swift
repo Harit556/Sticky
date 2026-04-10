@@ -30,11 +30,12 @@ enum ConfettiSize: String, CaseIterable, Identifiable, Codable, Hashable {
 }
 
 enum ConfettiAmount: String, CaseIterable, Identifiable, Codable, Hashable {
-    case few, normal, lots
+    case none, few, normal, lots
     var id: String { rawValue }
 
     var displayName: String {
         switch self {
+        case .none: return "None"
         case .few: return "Few"
         case .normal: return "Normal"
         case .lots: return "Lots"
@@ -43,6 +44,7 @@ enum ConfettiAmount: String, CaseIterable, Identifiable, Codable, Hashable {
 
     var particleCount: Int {
         switch self {
+        case .none: return 0
         case .few: return 40
         case .normal: return 100
         case .lots: return 250
@@ -51,6 +53,7 @@ enum ConfettiAmount: String, CaseIterable, Identifiable, Codable, Hashable {
 
     var birthRate: CGFloat {
         switch self {
+        case .none: return 0
         case .few: return 150
         case .normal: return 300
         case .lots: return 600

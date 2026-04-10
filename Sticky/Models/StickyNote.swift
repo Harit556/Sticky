@@ -35,6 +35,7 @@ struct StickyNote: Identifiable, Codable, Hashable, Equatable {
     var lastModifiedAt: Date
     var isAlwaysOnTop: Bool
     var autoSortCompleted: Bool
+    var isMinimized: Bool
 
     // Per-sticky sound & confetti settings
     var soundEffect: SoundEffect?
@@ -57,6 +58,7 @@ struct StickyNote: Identifiable, Codable, Hashable, Equatable {
         lastModifiedAt: Date = Date(),
         isAlwaysOnTop: Bool = true,
         autoSortCompleted: Bool = false,
+        isMinimized: Bool = false,
         soundEffect: SoundEffect? = nil,
         confettiSize: ConfettiSize? = nil,
         confettiAmount: ConfettiAmount? = nil,
@@ -73,6 +75,7 @@ struct StickyNote: Identifiable, Codable, Hashable, Equatable {
         self.lastModifiedAt = lastModifiedAt
         self.isAlwaysOnTop = isAlwaysOnTop
         self.autoSortCompleted = autoSortCompleted
+        self.isMinimized = isMinimized
         self.soundEffect = soundEffect
         self.confettiSize = confettiSize
         self.confettiAmount = confettiAmount

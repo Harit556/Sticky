@@ -9,6 +9,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Pre-warm confetti window and sound so first trigger is instant
         ConfettiWindowController.shared.warmUp()
         _ = SoundManager.shared  // Force singleton init, which pre-loads the sound
+        GlobalHotkeyManager.shared.register()
 
 
         // Tell any open StickyNoteView to open remaining stickies

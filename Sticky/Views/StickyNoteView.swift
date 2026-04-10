@@ -8,6 +8,9 @@ struct StickyNoteView: View {
 
     @Environment(\.openWindow) private var openWindow
     @State private var showSettings = false
+    @State private var stickyWindow: NSWindow?
+
+    private let minimizedHeight: CGFloat = 36
 
     private var sticky: Binding<StickyNote> {
         store.binding(for: stickyID)
@@ -24,34 +27,47 @@ struct StickyNoteView: View {
                 note.colorTheme.headerColor(for: colorScheme)
                     .frame(height: 2)
 
-                TextField("Title", text: sticky.title)
-                    .textFieldStyle(.plain)
-                    .font(.system(size: 16, weight: .bold))
-                    .foregroundStyle(note.colorTheme.textColor(for: colorScheme))
-                    .padding(.horizontal, 14)
-                    .padding(.top, 8)
-                    .padding(.bottom, 4)
+                HStack(spacing: 4) {
+                    Button(action: toggleMinimize) {
+                        Image(systemName: note.isMinimized ? "chevron.right" : "chevron.down")
+                            .font(.system(size: 9, weight: .semibold))
+                            .foregroundStyle(note.colorTheme.textColor(for: colorScheme).opacity(0.45))
+                    }
+                    .buttonStyle(.plain)
+                    .padding(.leading, 10)
 
-                TodoListView(
-                    sticky: sticky,
-                    colorScheme: colorScheme,
-                    onTaskCompleted: { taskID in handleTaskCompletion(taskID: taskID) }
-                )
+                    TextField("Title", text: sticky.title)
+                        .textFieldStyle(.plain)
+                        .font(.system(size: 16, weight: .bold))
+                        .foregroundStyle(note.colorTheme.textColor(for: colorScheme))
+                        .padding(.top, 8)
+                        .padding(.bottom, 4)
+                        .padding(.trailing, 14)
+                }
 
-                Spacer(minLength: 0)
+                if !note.isMinimized {
+                    TodoListView(
+                        sticky: sticky,
+                        colorScheme: colorScheme,
+                        onTaskCompleted: { taskID in handleTaskCompletion(taskID: taskID) }
+                    )
+                    Spacer(minLength: 0)
+                }
             }
 
-            VStack {
-                Spacer()
-                HStack {
+            if !note.isMinimized {
+                VStack {
                     Spacer()
-                    PeelShadowView(colorScheme: colorScheme) {
-                        createNoteNextToCurrentWindow()
+                    HStack {
+                        Spacer()
+                        PeelShadowView(colorScheme: colorScheme) {
+                            createNoteNextToCurrentWindow()
+                        }
                     }
                 }
             }
         }
-        .frame(minWidth: 220, minHeight: 180)
+        .frame(minWidth: 220, minHeight: note.isMinimized ? minimizedHeight : 180)
         // Right-click anywhere on the sticky opens settings
         .overlay(RightClickHandler { showSettings = true })
         .popover(isPresented: $showSettings, arrowEdge: .trailing) {
@@ -82,20 +98,29 @@ struct StickyNoteView: View {
             openRemainingStickies()
         }
         .onChange(of: note.isAlwaysOnTop) { _, isOnTop in setWindowLevel(floating: isOnTop) }
+        .background(WindowAccessor(window: $stickyWindow))
     }
 
     // MARK: - Window Management
 
     private func configureWindow() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-            guard let window = NSApplication.shared.keyWindow ?? NSApplication.shared.windows.first(where: { $0.isVisible }) else { return }
+            guard let window = stickyWindow
+                    ?? NSApplication.shared.keyWindow
+                    ?? NSApplication.shared.windows.first(where: { $0.isVisible }) else { return }
             let note = sticky.wrappedValue
             window.level = note.isAlwaysOnTop ? .floating : .normal
             if let frame = note.windowFrame {
-                window.setFrame(frame.cgRect, display: true, animate: false)
+                if note.isMinimized {
+                    let f = CGRect(x: frame.x, y: frame.y + frame.height - minimizedHeight,
+                                   width: frame.width, height: minimizedHeight)
+                    window.setFrame(f, display: true, animate: false)
+                    applyMinimizedConstraints(window)
+                } else {
+                    window.setFrame(frame.cgRect, display: true, animate: false)
+                }
             }
         }
-
     }
 
     private func openRemainingStickies() {
@@ -111,6 +136,35 @@ struct StickyNoteView: View {
         }
     }
 
+    private func toggleMinimize() {
+        guard let window = stickyWindow else { return }
+        let current = window.frame
+        if !sticky.wrappedValue.isMinimized {
+            // Save current expanded frame, then shrink
+            store.updateWindowFrame(for: stickyID, frame: current)
+            sticky.wrappedValue.isMinimized = true
+            let newFrame = CGRect(x: current.minX, y: current.maxY - minimizedHeight,
+                                  width: current.width, height: minimizedHeight)
+            window.setFrame(newFrame, display: true, animate: true)
+            applyMinimizedConstraints(window)
+        } else {
+            // Expand back to saved size
+            sticky.wrappedValue.isMinimized = false
+            let saved = sticky.wrappedValue.windowFrame
+            let h = saved?.height ?? 400
+            let w = saved?.width ?? 280
+            let newFrame = CGRect(x: current.minX, y: current.maxY - h, width: w, height: h)
+            window.setFrame(newFrame, display: true, animate: true)
+            window.minSize = CGSize(width: 220, height: 180)
+            window.maxSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
+        }
+    }
+
+    private func applyMinimizedConstraints(_ window: NSWindow) {
+        window.minSize = CGSize(width: 220, height: minimizedHeight)
+        window.maxSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: minimizedHeight)
+    }
+
     private func setWindowLevel(floating: Bool) {
         NSApplication.shared.keyWindow?.level = floating ? .floating : .normal
     }
@@ -123,7 +177,6 @@ struct StickyNoteView: View {
 
     private func deleteCurrentNote() {
         showSettings = false
-        // Close this window then delete the note
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             NSApplication.shared.keyWindow?.close()
             store.deleteSticky(id: stickyID)
@@ -155,10 +208,11 @@ struct StickyNoteView: View {
         let task = note.tasks.first(where: { $0.id == taskID })
         let stickyName = note.colorTheme.displayName
         let sid = stickyID
+        let effectiveAmount = note.confettiAmount ?? ConfettiSettings.shared.amount
 
         DispatchQueue.main.async {
             SoundManager.shared.playCompletionSound(sound: note.soundEffect, volume: note.confettiVolume)
-            if let frame = windowFrame {
+            if effectiveAmount != .none, let frame = windowFrame {
                 ConfettiWindowController.shared.triggerConfetti(
                     atScreenPoint: NSPoint(x: frame.minX + 50, y: frame.maxY - 60),
                     size: note.confettiSize,
@@ -172,4 +226,16 @@ struct StickyNoteView: View {
             }
         }
     }
+}
+
+// MARK: - Window Accessor
+
+private struct WindowAccessor: NSViewRepresentable {
+    @Binding var window: NSWindow?
+    func makeNSView(context: Context) -> NSView {
+        let view = NSView()
+        DispatchQueue.main.async { self.window = view.window }
+        return view
+    }
+    func updateNSView(_ nsView: NSView, context: Context) {}
 }

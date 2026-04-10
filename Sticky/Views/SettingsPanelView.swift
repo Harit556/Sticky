@@ -41,6 +41,12 @@ struct SettingsPanelView: View {
                     soundManager.previewSound(sound)
                 }
             }
+            menuItem("📁 Custom...", checked: sticky.soundEffect == .custom) {
+                soundManager.importCustomSound()
+                if soundManager.selectedSound == .custom {
+                    sticky.soundEffect = .custom
+                }
+            }
 
             menuDivider
 
