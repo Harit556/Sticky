@@ -1,106 +1,99 @@
-# StickyTodos
+# Sticky
 
-A native macOS sticky note to-do list app built with Swift and SwiftUI. Every completed task triggers a confetti celebration with custom sound effects.
+A native macOS sticky note app that celebrates every time you tick something off. Built with Swift and SwiftUI.
 
-## Requirements
+![macOS](https://img.shields.io/badge/macOS-14.0+-blue) ![Swift](https://img.shields.io/badge/Swift-5.9-orange)
 
-- **macOS 14.0** (Sonoma) or later
-- **Xcode 15.0** or later
-- No third-party dependencies
+---
 
-## Setup & Build
+## Download
 
-1. Open `StickyTodos.xcodeproj` in Xcode
-2. Select the `StickyTodos` scheme and a Mac target
-3. Press `Cmd+R` to build and run
+Grab the latest release from the [Releases](https://github.com/Harit556/Sticky/releases) page. Unzip and drag to Applications.
 
-Or build from the command line:
+> First launch: right-click → Open to get past Gatekeeper (app is unsigned).
 
-```bash
-xcodebuild -project StickyTodos.xcodeproj -scheme StickyTodos -configuration Debug build
-```
+---
+
+## What it does
+
+Floating sticky notes that live on your desktop. Each one has its own to-do list. Tick something off and get a confetti explosion. That's basically it.
+
+---
 
 ## Features
 
-### Sticky Note UI
-- Floating windows that stay above other apps (toggleable pin)
-- Classic sticky note look: rounded corners, warm yellow background, subtle drop shadow
-- No traditional title bar — minimal chrome with close/minimize dots
-- "Peel" shadow effect in the bottom-right corner
-- Window position and size remembered between launches
+### The basics
+- Multiple floating sticky windows — each with their own tasks and colour
+- Windows stay where you put them between launches
+- Right-click anywhere on a sticky to open its settings
+- `⌘N` to create a new sticky, `⇧⌘O` to open all of them side by side
+- `⌥⇧S` to hide or show all stickies from anywhere on your Mac
 
-### To-Do List
-- Click "Add task" or press Enter to create new tasks inline
-- Press Enter to confirm a task and immediately start a new one below
-- Click the checkbox to mark complete (with strikethrough and fade)
-- Swipe left to delete, or press Backspace on an empty task
-- Drag to reorder tasks
-- Keyboard navigation: arrow keys to move between tasks, Space to toggle
+### Tasks
+- Press Enter to add a new task and immediately start the next one
+- Click the checkbox to complete (with strikethrough)
+- Backspace on an empty task to delete it
+- Drag to reorder
+- Option to auto-sort completed tasks to the bottom
 
-### Confetti Celebration
-- Checking off a task triggers a multicolored confetti burst (7 colors)
-- Accompanied by a satisfying pop sound effect
-- Each completion gets its own independent burst — rapid checking triggers multiple explosions
-- Animation runs ~1.5 seconds without blocking interaction
-- Built with SpriteKit particle emitters
+### Minimise
+- Click the chevron next to the title to collapse a sticky to a slim 36px bar
+- Click it again to expand
 
-### Color Themes
-- Right-click any sticky to choose from 6 preset colors: Yellow, Pink, Green, Blue, Purple, Orange
-- **Custom color picker**: choose any color via the native macOS color panel
-- Dark mode support with muted color variants
-- Theme choice persists per sticky
+### Confetti
+5 styles to choose from:
+- **Classic** — streaming rectangles (the original)
+- **Burst** — everything explodes outward from one point
+- **Stars** — 5-pointed star shapes
+- **Emoji** — 🎉✨🌟💫 pop up, float, and fade
+- **Minimal** — 3–5 large slow-falling pieces, barely there
 
-### Multiple Stickies
-- `Cmd+N` to create a new sticky note
-- Each sticky has its own tasks, color theme, and window position
-- All data persists to `~/Library/Application Support/StickyTodos/stickies.json`
+All styles respond to Size, Amount, Gravity, and Colour settings.
 
-### Menu Bar
-- Menu bar icon (note icon) lists all open stickies with task counts
-- Quick access to create new stickies or open Zapier settings
-- App lives in the menu bar — no Dock icon
+### Sound effects
+- Confetti, Yay, Yippie, Cat Laugh, Apple Pay, Rizz, Click Nice
+- Import your own MP3
+- Or turn sound off entirely
 
-### Zapier Integration
-- Connect task events to 5,000+ apps via Zapier webhooks
-- Sends events for: task completed, task created, task deleted
-- Configure webhook URLs in Settings (menu bar > "Zapier Integration...")
-- Test button to verify webhook connectivity
+### Per-sticky settings
+Every sticky can have its own:
+- Colour theme (6 presets + custom colour picker)
+- Sound effect
+- Confetti style, size, amount, gravity, volume, and colour
+- Always on top toggle
 
-**Setup:**
-1. Create a Zap on [zapier.com](https://zapier.com)
-2. Choose "Webhooks by Zapier" > "Catch Hook" as trigger
-3. Copy the webhook URL
-4. Paste it into StickyTodos settings
-5. Tasks now flow to Todoist, Notion, Slack, Google Sheets, etc.
+### Zapier integration
+Connect task completions to 5,000+ apps. Set a webhook URL in Settings → Zapier Integration and tasks will flow to Notion, Slack, Google Sheets, Todoist — wherever you want.
 
-## Keyboard Shortcuts
+---
+
+## Keyboard shortcuts
 
 | Shortcut | Action |
 |---|---|
-| `Cmd+N` | New sticky note |
-| `Enter` | Confirm task, start new one |
-| `Arrow Up/Down` | Navigate between tasks |
-| `Space` | Toggle task completion |
+| `⌘N` | New sticky |
+| `⇧⌘O` | Open all stickies side by side |
+| `⌥⇧S` | Show / hide all stickies |
+| `Enter` | New task |
 | `Backspace` | Delete empty task |
-| `Cmd+Q` | Quit |
+| `⌘Q` | Quit |
 
-## Project Structure
+---
 
+## Building from source
+
+Requires Xcode 15+ and macOS 14+. No third-party dependencies.
+
+```bash
+git clone https://github.com/Harit556/Sticky.git
+cd Sticky
+open Sticky.xcodeproj
 ```
-StickyTodos/
-├── App/           — App entry point, AppDelegate, window management
-├── Models/        — TodoItem, StickyNote, StickyColorTheme
-├── Views/         — All SwiftUI views
-├── Confetti/      — SpriteKit particle system
-├── Audio/         — Sound manager (generates pop sound at runtime)
-├── Persistence/   — JSON file storage
-└── Integration/   — Zapier webhook service
-```
 
-## Tech Stack
+Press `⌘R` to build and run.
 
-- Pure Swift + SwiftUI (no third-party dependencies)
-- SpriteKit for confetti particle effects
-- AVFoundation for sound (with programmatic WAV generation fallback)
-- URLSession for Zapier webhook integration
-- JSON file persistence with atomic writes and debounced saving
+---
+
+## Tech
+
+Swift + SwiftUI, SpriteKit for confetti, AVFoundation for audio, JSON persistence with atomic writes.
