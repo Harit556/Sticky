@@ -30,7 +30,7 @@ enum ConfettiSize: String, CaseIterable, Identifiable, Codable, Hashable {
 }
 
 enum ConfettiAmount: String, CaseIterable, Identifiable, Codable, Hashable {
-    case none, few, normal, lots
+    case none, few, normal, lots, max
     var id: String { rawValue }
 
     var displayName: String {
@@ -39,6 +39,7 @@ enum ConfettiAmount: String, CaseIterable, Identifiable, Codable, Hashable {
         case .few: return "Few"
         case .normal: return "Normal"
         case .lots: return "Lots"
+        case .max: return "MAX"
         }
     }
 
@@ -48,6 +49,7 @@ enum ConfettiAmount: String, CaseIterable, Identifiable, Codable, Hashable {
         case .few: return 40
         case .normal: return 100
         case .lots: return 250
+        case .max: return 3000
         }
     }
 
@@ -57,6 +59,7 @@ enum ConfettiAmount: String, CaseIterable, Identifiable, Codable, Hashable {
         case .few: return 150
         case .normal: return 300
         case .lots: return 600
+        case .max: return 8000
         }
     }
 }

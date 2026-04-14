@@ -145,7 +145,7 @@ struct SettingsPanelView: View {
             }
         }
         .padding(.vertical, 6)
-        .frame(width: 280)
+        .frame(width: 360)
         .sheet(isPresented: $showCustomColorPicker) { customColorSheet }
     }
 
