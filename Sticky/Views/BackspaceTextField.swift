@@ -9,10 +9,15 @@ class TaskTextField: NSTextField {
     override func performKeyEquivalent(with event: NSEvent) -> Bool {
         // keyCode 36 = Return/Enter
         if event.keyCode == 36,
-           event.modifierFlags.contains(.command),
            let editor = currentEditor(), window?.firstResponder == editor {
-            onCmdReturn?()
-            return true
+            // Shift+Enter: let it fall through to doCommandBy for newline insertion
+            if event.modifierFlags.contains(.shift) {
+                return false
+            }
+            if event.modifierFlags.contains(.command) {
+                onCmdReturn?()
+                return true
+            }
         }
         return super.performKeyEquivalent(with: event)
     }
@@ -43,9 +48,11 @@ struct BackspaceTextField: NSViewRepresentable {
         textField.isBordered = false
         textField.drawsBackground = false
         textField.focusRingType = .none
-        textField.lineBreakMode = .byTruncatingTail
-        textField.cell?.wraps = false
-        textField.cell?.isScrollable = true
+        textField.lineBreakMode = .byWordWrapping
+        textField.cell?.wraps = true
+        textField.cell?.isScrollable = false
+        textField.maximumNumberOfLines = 0
+        textField.usesSingleLineMode = false
         return textField
     }
 
@@ -121,6 +128,11 @@ struct BackspaceTextField: NSViewRepresentable {
 
         func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
             if commandSelector == #selector(NSResponder.insertNewline(_:)) {
+                // Shift+Enter inserts a line break instead of submitting
+                if NSApp.currentEvent?.modifierFlags.contains(.shift) == true {
+                    textView.insertNewlineIgnoringFieldEditor(nil)
+                    return true
+                }
                 onSubmit()
                 return true
             }
