@@ -175,18 +175,27 @@ extension Color {
     }
 
     func darkened(by amount: Double) -> Color {
-        let nsColor = NSColor(self)
+#if os(macOS)
+        let platformColor = NSColor(self)
         var h: CGFloat = 0, s: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
-        let converted = nsColor.usingColorSpace(.sRGB) ?? nsColor
+        let converted = platformColor.usingColorSpace(.sRGB) ?? platformColor
         converted.getHue(&h, saturation: &s, brightness: &b, alpha: &a)
+#else
+        let platformColor = UIColor(self)
+        var h: CGFloat = 0, s: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
+        platformColor.getHue(&h, saturation: &s, brightness: &b, alpha: &a)
+#endif
         return Color(hue: Double(h), saturation: Double(s), brightness: Double(max(b - CGFloat(amount), 0.05)), opacity: Double(a))
     }
 
     var hexString: String {
-        let nsColor = NSColor(self).usingColorSpace(.sRGB) ?? NSColor(self)
-        let r = Int(nsColor.redComponent * 255)
-        let g = Int(nsColor.greenComponent * 255)
-        let b = Int(nsColor.blueComponent * 255)
-        return String(format: "#%02X%02X%02X", r, g, b)
+        var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
+#if os(macOS)
+        let platformColor = NSColor(self).usingColorSpace(.sRGB) ?? NSColor(self)
+        platformColor.getRed(&r, green: &g, blue: &b, alpha: &a)
+#else
+        UIColor(self).getRed(&r, green: &g, blue: &b, alpha: &a)
+#endif
+        return String(format: "#%02X%02X%02X", Int(r * 255), Int(g * 255), Int(b * 255))
     }
 }

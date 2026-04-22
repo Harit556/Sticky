@@ -1,5 +1,7 @@
-import AppKit
 import AVFoundation
+#if os(macOS)
+import AppKit
+#endif
 
 enum SoundEffect: String, CaseIterable, Identifiable, Codable, Hashable {
     case none = "__none__"
@@ -48,10 +50,12 @@ class SoundManager: ObservableObject {
     @Published var customSoundURL: URL? {
         didSet {
             if let url = customSoundURL {
-                // Bookmark the URL so we can access it after app restart
+#if os(macOS)
+                // Bookmark the URL so we can access it after app restart (macOS sandbox)
                 if let bookmark = try? url.bookmarkData(options: .withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil) {
                     UserDefaults.standard.set(bookmark, forKey: "customSoundBookmark")
                 }
+#endif
                 UserDefaults.standard.set(url.lastPathComponent, forKey: "customSoundName")
             }
             if selectedSound == .custom {
@@ -71,13 +75,15 @@ class SoundManager: ObservableObject {
         let savedKey = UserDefaults.standard.string(forKey: "selectedSound") ?? SoundEffect.confetti.rawValue
         self.selectedSound = SoundEffect(rawValue: savedKey) ?? .confetti
 
-        // Restore custom sound bookmark
+        // Restore custom sound bookmark (macOS sandbox only)
+#if os(macOS)
         if let bookmarkData = UserDefaults.standard.data(forKey: "customSoundBookmark") {
             var isStale = false
             if let url = try? URL(resolvingBookmarkData: bookmarkData, options: .withSecurityScope, relativeTo: nil, bookmarkDataIsStale: &isStale) {
                 self.customSoundURL = url
             }
         }
+#endif
 
         loadCurrentSound()
     }
@@ -153,8 +159,9 @@ class SoundManager: ObservableObject {
         }
     }
 
-    // MARK: - Custom Sound Import
+    // MARK: - Custom Sound Import (macOS only)
 
+#if os(macOS)
     func importCustomSound() {
         let panel = NSOpenPanel()
         panel.title = "Choose a Sound Effect"
@@ -167,4 +174,5 @@ class SoundManager: ObservableObject {
             selectedSound = .custom
         }
     }
+#endif
 }

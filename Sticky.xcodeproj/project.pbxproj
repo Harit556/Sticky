@@ -40,6 +40,8 @@
 		A10034 /* Apple Pay.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B10034; };
 		A10035 /* Rizz.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B10035; };
 		A10036 /* Click Nice.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B10036; };
+		A10050 /* CloudKitSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10050; };
+		A10051 /* StickyNote+CloudKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10051; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +80,8 @@
 		B10034 /* Apple Pay.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Apple Pay.mp3"; sourceTree = "<group>"; };
 		B10035 /* Rizz.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Rizz.mp3; sourceTree = "<group>"; };
 		B10036 /* Click Nice.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Click Nice.mp3"; sourceTree = "<group>"; };
+		B10050 /* CloudKitSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitSync.swift; sourceTree = "<group>"; };
+		B10051 /* StickyNote+CloudKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StickyNote+CloudKit.swift"; sourceTree = "<group>"; };
 		P10001 /* Sticky.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sticky.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -110,6 +114,7 @@
 				G10006 /* Audio */,
 				G10007 /* Persistence */,
 				G10008 /* Integration */,
+				G10010 /* Sync */,
 				B10020 /* Assets.xcassets */,
 				B10021 /* Info.plist */,
 				B10022 /* Sticky.entitlements */,
@@ -204,6 +209,15 @@
 				B10019 /* ZapierWebhookService.swift */,
 			);
 			path = Integration;
+			sourceTree = "<group>";
+		};
+		G10010 /* Sync */ = {
+			isa = PBXGroup;
+			children = (
+				B10050 /* CloudKitSync.swift */,
+				B10051 /* StickyNote+CloudKit.swift */,
+			);
+			path = Sync;
 			sourceTree = "<group>";
 		};
 		G10099 /* Products */ = {
@@ -315,6 +329,8 @@
 				A10022 /* BackspaceTextField.swift in Sources */,
 				A10026 /* SettingsPanelView.swift in Sources */,
 				A10027 /* RightClickHandler.swift in Sources */,
+				A10050 /* CloudKitSync.swift in Sources */,
+				A10051 /* StickyNote+CloudKit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
