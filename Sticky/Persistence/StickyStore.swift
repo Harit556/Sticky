@@ -35,10 +35,20 @@ class StickyStore: ObservableObject {
             let startX = (screenWidth - totalWidth) / 2
             let startY = (screenHeight - noteHeight) / 2
 
-            let welcomeNotes: [(title: String, task: String, theme: StickyColorTheme)] = [
-                ("My Tasks",   "You can do it",               .preset(.yellow)),
-                ("Shortcuts",  "CMD + Enter for ticking",     .preset(.green)),
-                ("Tips",       "Right click for settings", .preset(.blue)),
+            let welcomeNotes: [(title: String, tasks: [String], theme: StickyColorTheme)] = [
+                ("My Tasks", ["You can do it 💪"], .preset(.yellow)),
+                ("Shortcuts", [
+                    "⌘ + Enter — tick a task",
+                    "Shift + Enter — line break in a task",
+                    "⌥ + Shift + S — show/hide all stickies",
+                    "⌘ + N — new sticky",
+                    "Right click — open settings",
+                ], .preset(.green)),
+                ("Tips", [
+                    "Drag the chevron to minimise",
+                    "Try different confetti styles in Settings",
+                    "Long tasks? Use Shift+Enter to wrap",
+                ], .preset(.blue)),
             ]
 
             for (i, info) in welcomeNotes.enumerated() {
@@ -52,7 +62,7 @@ class StickyStore: ObservableObject {
                         height: noteHeight
                     )
                 )
-                note.addTask(title: info.task)
+                for task in info.tasks { note.addTask(title: task) }
                 stickies.append(note)
             }
 
@@ -148,10 +158,20 @@ class StickyStore: ObservableObject {
         let startX = (screenWidth - totalWidth) / 2
         let startY = (screenHeight - noteHeight) / 2
 
-        let welcomeNotes: [(title: String, task: String, theme: StickyColorTheme)] = [
-            ("My Tasks",   "You can do it",               .preset(.yellow)),
-            ("Shortcuts",  "CMD + Enter for ticking",     .preset(.green)),
-            ("Tips",       "Right click for settings",    .preset(.blue)),
+        let welcomeNotes: [(title: String, tasks: [String], theme: StickyColorTheme)] = [
+            ("My Tasks", ["You can do it 💪"], .preset(.yellow)),
+            ("Shortcuts", [
+                "⌘ + Enter — tick a task",
+                "Shift + Enter — line break in a task",
+                "⌥ + Shift + S — show/hide all stickies",
+                "⌘ + N — new sticky",
+                "Right click — open settings",
+            ], .preset(.green)),
+            ("Tips", [
+                "Drag the chevron to minimise",
+                "Try different confetti styles in Settings",
+                "Long tasks? Use Shift+Enter to wrap",
+            ], .preset(.blue)),
         ]
 
         for (i, info) in welcomeNotes.enumerated() {
@@ -165,7 +185,7 @@ class StickyStore: ObservableObject {
                     height: noteHeight
                 )
             )
-            note.addTask(title: info.task)
+            for task in info.tasks { note.addTask(title: task) }
             stickies.append(note)
         }
 
