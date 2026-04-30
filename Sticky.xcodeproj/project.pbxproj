@@ -42,6 +42,30 @@
 		A10036 /* Click Nice.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B10036; };
 		A10050 /* CloudKitSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10050; };
 		A10051 /* StickyNote+CloudKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10051; };
+		/* iOS target build files - shared sources */
+		A10100 /* TodoItem.swift in iOS Sources */ = {isa = PBXBuildFile; fileRef = B10004; };
+		A10101 /* StickyNote.swift in iOS Sources */ = {isa = PBXBuildFile; fileRef = B10005; };
+		A10102 /* StickyColorTheme.swift in iOS Sources */ = {isa = PBXBuildFile; fileRef = B10006; };
+		A10103 /* StickyStore.swift in iOS Sources */ = {isa = PBXBuildFile; fileRef = B10017; };
+		A10104 /* ConfettiSettings.swift in iOS Sources */ = {isa = PBXBuildFile; fileRef = B10025; };
+		A10105 /* SoundManager.swift in iOS Sources */ = {isa = PBXBuildFile; fileRef = B10016; };
+		A10106 /* CloudKitSync.swift in iOS Sources */ = {isa = PBXBuildFile; fileRef = B10050; };
+		A10107 /* StickyNote+CloudKit.swift in iOS Sources */ = {isa = PBXBuildFile; fileRef = B10051; };
+		/* iOS target build files - iOS-specific sources */
+		A10110 /* StickyiOSApp.swift in iOS Sources */ = {isa = PBXBuildFile; fileRef = B10060; };
+		A10111 /* iOSContentView.swift in iOS Sources */ = {isa = PBXBuildFile; fileRef = B10061; };
+		A10112 /* iOSNoteView.swift in iOS Sources */ = {isa = PBXBuildFile; fileRef = B10062; };
+		A10113 /* iOSTodoRow.swift in iOS Sources */ = {isa = PBXBuildFile; fileRef = B10063; };
+		A10114 /* iOSSettingsView.swift in iOS Sources */ = {isa = PBXBuildFile; fileRef = B10064; };
+		/* iOS target build files - resources */
+		A10120 /* Assets.xcassets in iOS Resources */ = {isa = PBXBuildFile; fileRef = B10020; };
+		A10121 /* confetti.mp3 in iOS Resources */ = {isa = PBXBuildFile; fileRef = B10030; };
+		A10122 /* Yay.mp3 in iOS Resources */ = {isa = PBXBuildFile; fileRef = B10031; };
+		A10123 /* Yippie.mp3 in iOS Resources */ = {isa = PBXBuildFile; fileRef = B10032; };
+		A10124 /* Cat Laugh.mp3 in iOS Resources */ = {isa = PBXBuildFile; fileRef = B10033; };
+		A10125 /* Apple Pay.mp3 in iOS Resources */ = {isa = PBXBuildFile; fileRef = B10034; };
+		A10126 /* Rizz.mp3 in iOS Resources */ = {isa = PBXBuildFile; fileRef = B10035; };
+		A10127 /* Click Nice.mp3 in iOS Resources */ = {isa = PBXBuildFile; fileRef = B10036; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,11 +106,24 @@
 		B10036 /* Click Nice.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Click Nice.mp3"; sourceTree = "<group>"; };
 		B10050 /* CloudKitSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitSync.swift; sourceTree = "<group>"; };
 		B10051 /* StickyNote+CloudKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StickyNote+CloudKit.swift"; sourceTree = "<group>"; };
+		B10060 /* StickyiOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickyiOSApp.swift; sourceTree = "<group>"; };
+		B10061 /* iOSContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSContentView.swift; sourceTree = "<group>"; };
+		B10062 /* iOSNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSNoteView.swift; sourceTree = "<group>"; };
+		B10063 /* iOSTodoRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSTodoRow.swift; sourceTree = "<group>"; };
+		B10064 /* iOSSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSSettingsView.swift; sourceTree = "<group>"; };
 		P10001 /* Sticky.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sticky.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		P10002 /* Sticky iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sticky iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		F10001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F10002 /* iOS Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -115,6 +152,7 @@
 				G10007 /* Persistence */,
 				G10008 /* Integration */,
 				G10010 /* Sync */,
+				G10011 /* iOS */,
 				B10020 /* Assets.xcassets */,
 				B10021 /* Info.plist */,
 				B10022 /* Sticky.entitlements */,
@@ -220,10 +258,23 @@
 			path = Sync;
 			sourceTree = "<group>";
 		};
+		G10011 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				B10060 /* StickyiOSApp.swift */,
+				B10061 /* iOSContentView.swift */,
+				B10062 /* iOSNoteView.swift */,
+				B10063 /* iOSTodoRow.swift */,
+				B10064 /* iOSSettingsView.swift */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
 		G10099 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				P10001 /* Sticky.app */,
+				P10002 /* Sticky iOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -248,6 +299,23 @@
 			productReference = P10001 /* Sticky.app */;
 			productType = "com.apple.product-type.application";
 		};
+		T10002 /* Sticky iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CL10003 /* Build configuration list for PBXNativeTarget "Sticky iOS" */;
+			buildPhases = (
+				S10002 /* iOS Sources */,
+				F10002 /* iOS Frameworks */,
+				R10002 /* iOS Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Sticky iOS";
+			productName = "Sticky iOS";
+			productReference = P10002 /* Sticky iOS.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -259,6 +327,9 @@
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					T10001 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+					T10002 = {
 						CreatedOnToolsVersion = 15.0;
 					};
 				};
@@ -277,6 +348,7 @@
 			projectRoot = "";
 			targets = (
 				T10001 /* Sticky */,
+				T10002 /* Sticky iOS */,
 			);
 		};
 /* End PBXProject section */
@@ -294,6 +366,21 @@
 				A10034 /* Apple Pay.mp3 in Resources */,
 				A10035 /* Rizz.mp3 in Resources */,
 				A10036 /* Click Nice.mp3 in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		R10002 /* iOS Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10120 /* Assets.xcassets in iOS Resources */,
+				A10121 /* confetti.mp3 in iOS Resources */,
+				A10122 /* Yay.mp3 in iOS Resources */,
+				A10123 /* Yippie.mp3 in iOS Resources */,
+				A10124 /* Cat Laugh.mp3 in iOS Resources */,
+				A10125 /* Apple Pay.mp3 in iOS Resources */,
+				A10126 /* Rizz.mp3 in iOS Resources */,
+				A10127 /* Click Nice.mp3 in iOS Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,6 +418,26 @@
 				A10027 /* RightClickHandler.swift in Sources */,
 				A10050 /* CloudKitSync.swift in Sources */,
 				A10051 /* StickyNote+CloudKit.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		S10002 /* iOS Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10100 /* TodoItem.swift in iOS Sources */,
+				A10101 /* StickyNote.swift in iOS Sources */,
+				A10102 /* StickyColorTheme.swift in iOS Sources */,
+				A10103 /* StickyStore.swift in iOS Sources */,
+				A10104 /* ConfettiSettings.swift in iOS Sources */,
+				A10105 /* SoundManager.swift in iOS Sources */,
+				A10106 /* CloudKitSync.swift in iOS Sources */,
+				A10107 /* StickyNote+CloudKit.swift in iOS Sources */,
+				A10110 /* StickyiOSApp.swift in iOS Sources */,
+				A10111 /* iOSContentView.swift in iOS Sources */,
+				A10112 /* iOSNoteView.swift in iOS Sources */,
+				A10113 /* iOSTodoRow.swift in iOS Sources */,
+				A10114 /* iOSSettingsView.swift in iOS Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -502,6 +609,67 @@
 			};
 			name = Release;
 		};
+		BC10005 /* iOS Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Sticky/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = NO;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.stickytodos.app.ios";
+				PRODUCT_NAME = "Sticky iOS";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BC10006 /* iOS Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Sticky/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = NO;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.stickytodos.app.ios";
+				PRODUCT_NAME = "Sticky iOS";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -519,6 +687,15 @@
 			buildConfigurations = (
 				BC10003 /* Debug */,
 				BC10004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CL10003 /* Build configuration list for PBXNativeTarget "Sticky iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC10005 /* iOS Debug */,
+				BC10006 /* iOS Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

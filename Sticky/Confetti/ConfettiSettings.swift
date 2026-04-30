@@ -1,4 +1,7 @@
+import Foundation
+#if os(macOS)
 import AppKit
+#endif
 
 enum ConfettiSize: String, CaseIterable, Identifiable, Codable, Hashable {
     case small, medium, large
@@ -122,6 +125,7 @@ enum ConfettiColorScheme: String, CaseIterable, Identifiable, Codable, Hashable 
         }
     }
 
+#if os(macOS)
     var colors: [NSColor] {
         switch self {
         case .rainbow:
@@ -173,6 +177,7 @@ enum ConfettiColorScheme: String, CaseIterable, Identifiable, Codable, Hashable 
             ]
         }
     }
+#endif
 }
 
 enum ConfettiStyle: String, CaseIterable, Identifiable, Codable, Hashable {
