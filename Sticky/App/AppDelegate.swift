@@ -79,14 +79,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NSApp.activate(ignoringOtherApps: true)
 
         // If a window for this sticky is already open, raise it directly via
-        // AppKit. Only fall back to SwiftUI's openWindow (which would create a
-        // duplicate window if called for an already-open value) when no window
-        // exists yet. Windows are stamped with `sticky.<UUID>` identifiers in
-        // StickyNoteView's WindowAccessor.
-        let targetIdentifier = NSUserInterfaceItemIdentifier("sticky.\(id.uuidString)")
-        if let existing = NSApp.windows.first(where: { $0.identifier == targetIdentifier }) {
-            existing.makeKeyAndOrderFront(nil)
-        } else {
+        // AppKit. Only fall back to SwiftUI's openWindow when no window exists,
+        // since openWindow has been observed to create duplicates for already-
+        // open values.
+        if StickyWindowRegistry.shared.raiseIfPresent(id: id) { return }
+
+        // Registry may be empty if the app is cold-launching (openAllTrigger
+        // hasn't fired yet). Retry once after a delay; only then fall back to
+        // openWindow.
+        Task { @MainActor in
+            try? await Task.sleep(nanoseconds: 2_500_000_000)
+            if StickyWindowRegistry.shared.raiseIfPresent(id: id) { return }
             NotificationCenter.default.post(
                 name: .openStickyByID,
                 object: nil,
@@ -153,6 +156,34 @@ final class URLNotificationDeduper {
         processed.insert(nonce)
         // Keep the set bounded; we never need more than the last few
         if processed.count > 64 { processed.removeAll() }
+        return true
+    }
+}
+
+/// Tracks live NSWindow instances by their sticky UUID so AppDelegate can
+/// raise an existing window directly instead of asking SwiftUI's openWindow
+/// (which has been observed to create duplicates for already-open values).
+@MainActor
+final class StickyWindowRegistry {
+    static let shared = StickyWindowRegistry()
+
+    private final class WeakBox {
+        weak var window: NSWindow?
+        init(_ w: NSWindow) { self.window = w }
+    }
+
+    private var registry: [UUID: WeakBox] = [:]
+
+    func register(_ window: NSWindow, for id: UUID) {
+        registry[id] = WeakBox(window)
+    }
+
+    /// Returns true if a live window for this id was raised. Cleans up nil
+    /// entries as a side-effect.
+    func raiseIfPresent(id: UUID) -> Bool {
+        registry = registry.filter { $0.value.window != nil }
+        guard let window = registry[id]?.window else { return false }
+        window.makeKeyAndOrderFront(nil)
         return true
     }
 }
