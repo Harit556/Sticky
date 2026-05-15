@@ -100,6 +100,10 @@ struct StickyNoteView: View {
         }
         .onChange(of: note.isAlwaysOnTop) { _, isOnTop in setWindowLevel(floating: isOnTop) }
         .background(WindowAccessor(window: $stickyWindow) { window in
+            // Stamp the window with its sticky's UUID so AppDelegate can find
+            // and raise it directly instead of calling openWindow (which would
+            // duplicate the window).
+            window.identifier = NSUserInterfaceItemIdentifier("sticky.\(stickyID.uuidString)")
             startTrackingWindowPosition(window)
         })
     }

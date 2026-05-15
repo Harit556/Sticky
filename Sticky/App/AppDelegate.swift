@@ -76,16 +76,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         sticky.addTask(title: t)
         StickyStore.shared.updateSticky(sticky)
 
-        // Activate app and request SwiftUI to open the window.
-        // Include a nonce so only one .onReceive handler reacts (every open
-        // WindowGroup instance receives the notification; without dedupe we'd
-        // open N duplicate windows).
         NSApp.activate(ignoringOtherApps: true)
-        NotificationCenter.default.post(
-            name: .openStickyByID,
-            object: nil,
-            userInfo: ["stickyID": id, "nonce": UUID()]
-        )
+
+        // If a window for this sticky is already open, raise it directly via
+        // AppKit. Only fall back to SwiftUI's openWindow (which would create a
+        // duplicate window if called for an already-open value) when no window
+        // exists yet. Windows are stamped with `sticky.<UUID>` identifiers in
+        // StickyNoteView's WindowAccessor.
+        let targetIdentifier = NSUserInterfaceItemIdentifier("sticky.\(id.uuidString)")
+        if let existing = NSApp.windows.first(where: { $0.identifier == targetIdentifier }) {
+            existing.makeKeyAndOrderFront(nil)
+        } else {
+            NotificationCenter.default.post(
+                name: .openStickyByID,
+                object: nil,
+                userInfo: ["stickyID": id, "nonce": UUID()]
+            )
+        }
     }
 
 

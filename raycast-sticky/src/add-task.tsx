@@ -1,7 +1,6 @@
 import {
   ActionPanel,
   Action,
-  Form,
   List,
   showToast,
   Toast,
@@ -118,14 +117,6 @@ function stickyEmoji(sticky: Sticky): string {
   const preset = sticky.colorTheme?.preset?._0;
   if (preset && PRESET_EMOJI[preset]) return PRESET_EMOJI[preset];
   return "⚪";
-}
-
-/// Builds a unicode progress bar like 🟡🟡🟡⚪⚪⚪⚪⚪ scaled to up to 8 dots.
-function progressBar(done: number, total: number, emoji: string): string {
-  if (total === 0) return "";
-  const max = Math.min(total, 8);
-  const filled = Math.min(Math.round((done / total) * max), max);
-  return emoji.repeat(filled) + "⚪".repeat(max - filled);
 }
 
 function cleanTitle(title: string): string {
@@ -274,26 +265,15 @@ function TaskForm({ sticky }: { sticky: Sticky }) {
   const [placeholder] = useState(randomPlaceholder);
   const { pop } = useNavigation();
 
+  const accent = stickyAccentColor(sticky);
   const emoji = stickyEmoji(sticky);
   const open_ = sticky.tasks.filter((t) => !t.isCompleted);
   const done_ = sticky.tasks.filter((t) => t.isCompleted);
-  const total = sticky.tasks.length;
-  const remaining = open_.length;
-  const presetName = sticky.colorTheme?.preset?._0 ?? "custom";
-  const recentOpen = open_.slice(-4).reverse();
+  const trimmed = text.trim();
 
-  // Themed status: progress bar in the sticky's colour, then a friendly label.
-  const statusText = (() => {
-    if (total === 0) return "⚪⚪⚪⚪⚪  ·  Empty — be the first to add one";
-    if (remaining === 0) return `${emoji.repeat(Math.min(total, 8))}  ·  ✨ All ${total} done`;
-    const bar = progressBar(done_.length, total, emoji);
-    return `${bar}  ·  ${done_.length} of ${total} done`;
-  })();
-
-  async function handleSubmit() {
-    const trimmed = text.trim();
+  async function submit() {
     if (!trimmed) {
-      showToast({ style: Toast.Style.Failure, title: "Enter task text" });
+      showToast({ style: Toast.Style.Failure, title: "Type a task in the search bar above" });
       return;
     }
     const url = `sticky://add?stickyID=${sticky.id}&text=${encodeURIComponent(trimmed)}`;
@@ -306,60 +286,71 @@ function TaskForm({ sticky }: { sticky: Sticky }) {
     await popToRoot();
   }
 
+  // Every list item shares the same actions, so ↵ always adds the task no
+  // matter which row is highlighted.
+  const sharedActions = (
+    <ActionPanel>
+      <Action title="Add Task" icon={Icon.Plus} onAction={submit} />
+      <Action
+        title="Pick Another Sticky"
+        icon={Icon.ArrowLeftCircle}
+        onAction={pop}
+        shortcut={{ modifiers: ["cmd"], key: "[" }}
+      />
+    </ActionPanel>
+  );
+
   return (
-    <Form
+    <List
       navigationTitle={`${emoji}  ${cleanTitle(sticky.title)}`}
-      actions={
-        <ActionPanel>
-          <Action.SubmitForm title="Add Task" icon={Icon.Plus} onSubmit={handleSubmit} />
-          <Action
-            title="Pick Another Sticky"
-            icon={Icon.ArrowLeftCircle}
-            onAction={pop}
-            shortcut={{ modifiers: ["cmd"], key: "[" }}
-          />
-        </ActionPanel>
-      }
+      searchBarPlaceholder={placeholder}
+      searchText={text}
+      onSearchTextChange={setText}
+      filtering={false}
     >
-      <Form.Description
-        title="Sticky"
-        text={`${emoji}  ${cleanTitle(sticky.title)}  ·  ${presetName}`}
-      />
-      <Form.Description title="Progress" text={statusText} />
+      <List.Section title="New task">
+        <List.Item
+          title={trimmed || "Type a task above…"}
+          subtitle={trimmed ? "" : "(then press Enter)"}
+          icon={
+            trimmed
+              ? { source: Icon.PlusCircleFilled, tintColor: accent }
+              : { source: Icon.PlusCircle, tintColor: Color.SecondaryText }
+          }
+          accessories={
+            trimmed
+              ? [{ tag: { value: "↵ to add", color: accent } }]
+              : []
+          }
+          actions={sharedActions}
+        />
+      </List.Section>
 
-      <Form.Separator />
-
-      <Form.TextArea
-        id="text"
-        title="New task"
-        value={text}
-        onChange={setText}
-        placeholder={placeholder}
-        autoFocus
-      />
-
-      {recentOpen.length > 0 && (
-        <>
-          <Form.Separator />
-          <Form.Description
-            title="Open tasks"
-            text={recentOpen
-              .map((t) => `${emoji}  ${t.title.split("\n")[0].slice(0, 60)}`)
-              .join("\n")}
-          />
-        </>
+      {open_.length > 0 && (
+        <List.Section title={`Open · ${open_.length}`}>
+          {open_.map((t) => (
+            <List.Item
+              key={t.id}
+              title={t.title.split("\n")[0]}
+              icon={{ source: Icon.Circle, tintColor: accent }}
+              actions={sharedActions}
+            />
+          ))}
+        </List.Section>
       )}
 
       {done_.length > 0 && (
-        <Form.Description
-          title="Recently done"
-          text={done_
-            .slice(-2)
-            .reverse()
-            .map((t) => `✅  ${t.title.split("\n")[0].slice(0, 60)}`)
-            .join("\n")}
-        />
+        <List.Section title={`Done · ${done_.length}`}>
+          {done_.map((t) => (
+            <List.Item
+              key={t.id}
+              title={t.title.split("\n")[0]}
+              icon={{ source: Icon.CheckCircle, tintColor: Color.Green }}
+              actions={sharedActions}
+            />
+          ))}
+        </List.Section>
       )}
-    </Form>
+    </List>
   );
 }
