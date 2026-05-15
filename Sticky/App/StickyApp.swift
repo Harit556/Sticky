@@ -12,9 +12,10 @@ struct StickyApp: App {
             StickyWindowRoot(stickyID: $stickyID)
                 .environmentObject(store)
                 .onReceive(NotificationCenter.default.publisher(for: .openStickyByID)) { notif in
-                    if let id = notif.userInfo?["stickyID"] as? UUID {
-                        openWindow(id: "sticky", value: id)
-                    }
+                    guard let id = notif.userInfo?["stickyID"] as? UUID,
+                          let nonce = notif.userInfo?["nonce"] as? UUID,
+                          URLNotificationDeduper.shared.shouldProcess(nonce) else { return }
+                    openWindow(id: "sticky", value: id)
                 }
         }
         .windowStyle(.hiddenTitleBar)

@@ -9,8 +9,8 @@
   "commands": [
     {
       "name": "add-task",
-      "title": "Add Sticky Task",
-      "subtitle": "Sticky",
+      "title": "Sticky",
+      "subtitle": "Add a task",
       "description": "Add a task to one of your stickies",
       "mode": "view"
     }

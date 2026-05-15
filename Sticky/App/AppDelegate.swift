@@ -76,12 +76,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         sticky.addTask(title: t)
         StickyStore.shared.updateSticky(sticky)
 
-        // Activate app and request SwiftUI to open the window
+        // Activate app and request SwiftUI to open the window.
+        // Include a nonce so only one .onReceive handler reacts (every open
+        // WindowGroup instance receives the notification; without dedupe we'd
+        // open N duplicate windows).
         NSApp.activate(ignoringOtherApps: true)
         NotificationCenter.default.post(
             name: .openStickyByID,
             object: nil,
-            userInfo: ["stickyID": id]
+            userInfo: ["stickyID": id, "nonce": UUID()]
         )
     }
 
@@ -127,4 +130,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 extension Notification.Name {
     static let openStickyByID = Notification.Name("OpenStickyByID")
+}
+
+/// Ensures only one `.onReceive` handler reacts per posted notification.
+/// Multiple `StickyWindowRoot` views are alive when several stickies are open;
+/// each receives every notification. We pin acting on it to the first handler
+/// that grabs the nonce.
+@MainActor
+final class URLNotificationDeduper {
+    static let shared = URLNotificationDeduper()
+    private var processed: Set<UUID> = []
+
+    func shouldProcess(_ nonce: UUID) -> Bool {
+        if processed.contains(nonce) { return false }
+        processed.insert(nonce)
+        // Keep the set bounded; we never need more than the last few
+        if processed.count > 64 { processed.removeAll() }
+        return true
+    }
 }
