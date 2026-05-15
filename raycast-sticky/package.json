@@ -1,0 +1,37 @@
+{
+  "$schema": "https://www.raycast.com/schemas/extension.json",
+  "name": "sticky",
+  "title": "Sticky",
+  "description": "Add tasks to your Sticky notes from Raycast",
+  "icon": "command-icon.png",
+  "author": "harit",
+  "license": "MIT",
+  "commands": [
+    {
+      "name": "add-task",
+      "title": "Add Sticky Task",
+      "subtitle": "Sticky",
+      "description": "Add a task to one of your stickies",
+      "mode": "view"
+    }
+  ],
+  "dependencies": {
+    "@raycast/api": "^1.83.0",
+    "react": "^18.3.1"
+  },
+  "devDependencies": {
+    "@raycast/eslint-config": "^1.0.11",
+    "@types/node": "^20.10.0",
+    "@types/react": "^18.3.0",
+    "eslint": "^8.57.0",
+    "prettier": "^3.3.3",
+    "typescript": "^5.4.0"
+  },
+  "scripts": {
+    "build": "ray build",
+    "dev": "ray develop",
+    "fix-lint": "ray lint --fix",
+    "lint": "ray lint",
+    "publish": "npx @raycast/api@latest publish"
+  }
+}

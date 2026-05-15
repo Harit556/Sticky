@@ -42,6 +42,49 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return false // Keep alive for menu bar
     }
 
+    // MARK: - URL Scheme Handling (e.g. from Raycast)
+
+    func application(_ application: NSApplication, open urls: [URL]) {
+        for url in urls {
+            // AppKit calls this on the main thread; hop to MainActor for Swift isolation
+            Task { @MainActor in
+                self.handleIncomingURL(url)
+            }
+        }
+    }
+
+    @MainActor
+    private func handleIncomingURL(_ url: URL) {
+        guard url.scheme == "sticky", url.host == "add" else { return }
+
+        let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
+        guard let items = components?.queryItems else { return }
+
+        var stickyID: UUID?
+        var text: String?
+        for item in items {
+            if item.name == "stickyID", let v = item.value { stickyID = UUID(uuidString: v) }
+            if item.name == "text",     let v = item.value { text = v }
+        }
+
+        guard let id = stickyID,
+              let t = text,
+              !t.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
+              var sticky = StickyStore.shared.sticky(for: id) else { return }
+
+        // Add task and persist (this also schedules CloudKit push)
+        sticky.addTask(title: t)
+        StickyStore.shared.updateSticky(sticky)
+
+        // Activate app and request SwiftUI to open the window
+        NSApp.activate(ignoringOtherApps: true)
+        NotificationCenter.default.post(
+            name: .openStickyByID,
+            object: nil,
+            userInfo: ["stickyID": id]
+        )
+    }
+
 
     private func configureStickyWindow(_ window: NSWindow) {
         let windowID = ObjectIdentifier(window)
@@ -78,4 +121,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             self?.configuredWindows.remove(ObjectIdentifier(closedWindow))
         }
     }
+}
+
+// MARK: - Notification Names
+
+extension Notification.Name {
+    static let openStickyByID = Notification.Name("OpenStickyByID")
 }

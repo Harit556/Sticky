@@ -11,6 +11,11 @@ struct StickyApp: App {
         WindowGroup(id: "sticky", for: UUID.self) { $stickyID in
             StickyWindowRoot(stickyID: $stickyID)
                 .environmentObject(store)
+                .onReceive(NotificationCenter.default.publisher(for: .openStickyByID)) { notif in
+                    if let id = notif.userInfo?["stickyID"] as? UUID {
+                        openWindow(id: "sticky", value: id)
+                    }
+                }
         }
         .windowStyle(.hiddenTitleBar)
         .windowResizability(.contentMinSize)

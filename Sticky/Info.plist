@@ -6,5 +6,16 @@
 	<string>Sticky</string>
 	<key>CFBundleName</key>
 	<string>Sticky</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.stickytodos.app.url</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>sticky</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>
